@@ -133,9 +133,9 @@
         const isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true';
         const loggedUser = sessionStorage.getItem('loggedInUser');
         if (!isAuthenticated || !loggedUser) {
-            // Usando um método de navegação mais robusto
             const navLink = document.createElement('a');
             navLink.href = 'login.html';
+            document.body.appendChild(navLink);
             navLink.click();
         }
     </script>
@@ -426,15 +426,13 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Demais variáveis omitidas para brevidade
             const mainContent = document.getElementById('main-content');
             const fullGallery = document.getElementById('full-gallery');
             const showAllImagesBtn = document.getElementById('show-all-images-btn');
             const backToMainBtn = document.getElementById('back-to-main-btn');
             const backToMainBtnBottom = document.getElementById('back-to-main-btn-bottom');
-            // ... (restante das variáveis)
-
-            // CORREÇÃO: Lógica de abrir/fechar galeria replicada do exemplo funcional
+            
+            // Lógica de abrir/fechar galeria replicada do exemplo funcional
             showAllImagesBtn.addEventListener('click', () => {
                 mainContent.classList.add('hidden');
                 fullGallery.classList.remove('hidden');
@@ -452,9 +450,8 @@
             backToMainBtn.addEventListener('click', closeGalleryAction);
             backToMainBtnBottom.addEventListener('click', closeGalleryAction);
 
-            // ... (restante do seu script que já funciona, como logout, scroll-spy, lightbox, etc., permanece aqui)
-            
-             const header = document.getElementById('header');
+            // O restante do seu script...
+            const header = document.getElementById('header');
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = document.querySelectorAll('#main-content section');
             const mobileSectionTitle = document.getElementById('mobile-section-title');
@@ -484,10 +481,8 @@
                 logoutBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-
                     if (confirm('Deseja realmente sair do sistema?')) {
                         sessionStorage.clear();
-                        localStorage.removeItem('tempData');
                         window.location.pathname = 'login.html';
                     }
                 });
@@ -495,7 +490,6 @@
 
             function adjustDownloadLinksForIphone() {
                 const isIPhone = /iPhone/i.test(navigator.userAgent);
-
                 if (isIPhone) {
                     const downloadLinks = document.querySelectorAll('a[download]');
                     downloadLinks.forEach(link => {
@@ -506,7 +500,6 @@
                     });
                 }
             }
-
             adjustDownloadLinksForIphone();
 
             let currentIndex = -1;
@@ -518,7 +511,6 @@
                 const allGalleryImages = document.querySelectorAll('.gallery-item img');
                 gallerySources = Array.from(allGalleryImages).map(img => img.src);
             }
-
             initializeGallery();
 
             const observerOptions = {
@@ -530,22 +522,14 @@
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        const elementsToAnimate = entry.target.querySelectorAll('.animate-on-scroll');
-                        elementsToAnimate.forEach(el => {
-                            el.classList.add('is-visible');
-                        });
+                        entry.target.querySelectorAll('.animate-on-scroll').forEach(el => el.classList.add('is-visible'));
                     } else {
-                        const elementsToAnimate = entry.target.querySelectorAll('.animate-on-scroll');
-                        elementsToAnimate.forEach(el => {
-                            el.classList.remove('is-visible');
-                        });
+                        entry.target.querySelectorAll('.animate-on-scroll').forEach(el => el.classList.remove('is-visible'));
                     }
                 });
             }, observerOptions);
 
-            document.querySelectorAll('.detail-section').forEach(section => {
-                observer.observe(section);
-            });
+            document.querySelectorAll('.detail-section').forEach(section => observer.observe(section));
 
             window.addEventListener('scroll', function() {
                 if (document.body.classList.contains('gallery-open') || document.body.classList.contains('pdf-viewer-open')) return;
@@ -575,12 +559,8 @@
 
                 header.classList.toggle('py-2', window.scrollY > 50);
                 header.classList.toggle('py-4', window.scrollY <= 50);
-
-                if (window.scrollY > 10) {
-                    header.classList.add('scrolled', 'backdrop-blur-md');
-                } else {
-                    header.classList.remove('scrolled', 'backdrop-blur-md');
-                }
+                header.classList.toggle('scrolled', window.scrollY > 10);
+                header.classList.toggle('backdrop-blur-md', window.scrollY > 10);
 
                 let current = 'inicio';
                 sections.forEach(section => {
@@ -589,15 +569,7 @@
                     }
                 });
 
-                const sectionTitles = {
-                    'inicio': 'Início',
-                    'imagens3d': 'Imagens 3D',
-                    'historia': 'A ESESP',
-                    'projeto-detalhes': 'O Projeto',
-                    'plantas': 'Plantas Técnicas',
-                    'contato': 'Contato'
-                };
-
+                const sectionTitles = { 'inicio': 'Início', 'imagens3d': 'Imagens 3D', 'historia': 'A ESESP', 'projeto-detalhes': 'O Projeto', 'plantas': 'Plantas Técnicas', 'contato': 'Contato' };
                 if (mobileSectionTitle && sectionTitles[current]) {
                     mobileSectionTitle.innerText = sectionTitles[current];
                 }
@@ -651,11 +623,8 @@
                         hideLightbox();
                     }
                 } else if (!pdfViewer.classList.contains('visible')) {
-                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                        showNextImage();
-                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                        showPrevImage();
-                    }
+                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') showNextImage();
+                    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') showPrevImage();
                 }
             };
 
@@ -671,13 +640,10 @@
 
             function hideLightbox() {
                 if (lightbox.classList.contains('opacity-0')) return;
-
                 lightbox.classList.add('opacity-0', 'pointer-events-none');
                 lightboxContent.classList.add('scale-95');
                 window.removeEventListener('keydown', handleKeydown);
-                setTimeout(() => {
-                    lightboxImg.setAttribute('src', '');
-                }, 300);
+                setTimeout(() => lightboxImg.setAttribute('src', ''), 300);
             }
 
             document.querySelectorAll('.gallery-item').forEach(item => {
@@ -713,14 +679,12 @@
                 const finalUrl = isMobileDevice() ? url + '#view=Fit' : url;
                 pdfIframe.src = finalUrl;
                 pdfViewer.classList.add('visible');
-                document.documentElement.classList.add('pdf-viewer-open');
                 document.body.classList.add('pdf-viewer-open');
                 window.addEventListener('keydown', handleKeydown);
             }
 
             function closePdfViewer() {
                 pdfViewer.classList.remove('visible');
-                document.documentElement.classList.remove('pdf-viewer-open');
                 document.body.classList.remove('pdf-viewer-open');
                 pdfIframe.src = '';
                 zoomLevel = 1;
@@ -762,7 +726,6 @@
 
             explore3dBtn.addEventListener('click', () => {
                 const link = explore3dBtn.dataset.link;
-
                 if (isMobileDevice()) {
                     const textArea = document.createElement('textarea');
                     textArea.value = link;
@@ -771,9 +734,7 @@
                     try {
                         document.execCommand('copy');
                         toast.classList.remove('opacity-0');
-                        setTimeout(() => {
-                            toast.classList.add('opacity-0');
-                        }, 4000);
+                        setTimeout(() => toast.classList.add('opacity-0'), 4000);
                     } catch (err) {
                         console.error('Falha ao copiar o link: ', err);
                     }
