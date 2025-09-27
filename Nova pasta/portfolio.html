@@ -42,16 +42,10 @@
         #header.scrolled {
             background: linear-gradient(to bottom, rgb(209, 209, 209), rgba(209, 209, 209, 0.15));
         }
-        
-        /* CORREÇÃO DEFINITIVA PARA SCROLL NO IOS */
-        #full-gallery {
-            -webkit-overflow-scrolling: touch; /* Garante a rolagem suave em dispositivos iOS */
+        /* CORREÇÃO FINAL: Replicando o CSS do exemplo funcional que você enviou */
+        body.gallery-open, body.pdf-viewer-open {
+            overflow: hidden;
         }
-
-        body.pdf-viewer-open {
-             overflow: hidden;
-        }
-
         .lightbox-nav {
             transition: opacity 0.3s ease;
         }
@@ -136,7 +130,14 @@
 </head>
 <body class="text-gray-800">
     <script>
-        // Verificação de autenticação movida para dentro do DOMContentLoaded para maior estabilidade
+        const isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true';
+        const loggedUser = sessionStorage.getItem('loggedInUser');
+        if (!isAuthenticated || !loggedUser) {
+            const navLink = document.createElement('a');
+            navLink.href = 'login.html';
+            document.body.appendChild(navLink);
+            navLink.click();
+        }
     </script>
 
     <div id="hero-background" class="fixed top-0 left-0 w-full h-full -z-10">
@@ -425,36 +426,31 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true';
-            const loggedUser = sessionStorage.getItem('loggedInUser');
-            if (!isAuthenticated || !loggedUser) {
-                // Usando um método de navegação mais simples
-                window.location.href = 'login.html';
-            }
-
             const mainContent = document.getElementById('main-content');
             const fullGallery = document.getElementById('full-gallery');
             const showAllImagesBtn = document.getElementById('show-all-images-btn');
             const backToMainBtn = document.getElementById('back-to-main-btn');
             const backToMainBtnBottom = document.getElementById('back-to-main-btn-bottom');
             
+            // Lógica de abrir/fechar galeria replicada do exemplo funcional
             showAllImagesBtn.addEventListener('click', () => {
-                mainContent.style.display = 'none';
-                fullGallery.style.display = 'block';
-                // A classe 'gallery-open' não é mais necessária para o controle de rolagem
+                mainContent.classList.add('hidden');
+                fullGallery.classList.remove('hidden');
+                document.body.classList.add('gallery-open');
                 window.scrollTo(0, 0);
             });
 
             const closeGalleryAction = () => {
-                fullGallery.style.display = 'none';
-                mainContent.style.display = 'block';
-                // Remove a classe que não é mais usada
-                document.getElementById('imagens3d').scrollIntoView({ behavior: 'smooth' });
+                fullGallery.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+                document.body.classList.remove('gallery-open');
+                document.getElementById('imagens3d').scrollIntoView();
             };
 
             backToMainBtn.addEventListener('click', closeGalleryAction);
             backToMainBtnBottom.addEventListener('click', closeGalleryAction);
 
+            // O restante do seu script...
             const header = document.getElementById('header');
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = document.querySelectorAll('#main-content section');
@@ -485,10 +481,9 @@
                 logoutBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    // Usando um modal customizado no futuro, por enquanto confirm
                     if (confirm('Deseja realmente sair do sistema?')) {
                         sessionStorage.clear();
-                        window.location.href = 'login.html';
+                        window.location.pathname = 'login.html';
                     }
                 });
             }
@@ -537,7 +532,7 @@
             document.querySelectorAll('.detail-section').forEach(section => observer.observe(section));
 
             window.addEventListener('scroll', function() {
-                if (fullGallery.style.display === 'block' || document.body.classList.contains('pdf-viewer-open')) return;
+                if (document.body.classList.contains('gallery-open') || document.body.classList.contains('pdf-viewer-open')) return;
 
                 const scrollPosition = window.scrollY;
                 const heroSectionHeight = document.getElementById('inicio').offsetHeight;
@@ -752,3 +747,4 @@
     </script>
 </body>
 </html>
+
