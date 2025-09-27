@@ -42,10 +42,17 @@
         #header.scrolled {
             background: linear-gradient(to bottom, rgb(209, 209, 209), rgba(209, 209, 209, 0.15));
         }
-        /* CORREÇÃO FINAL: Replicando o CSS do exemplo funcional que você enviou */
-        body.gallery-open, body.pdf-viewer-open {
+        
+        /* CORREÇÃO PARA SCROLL NO IOS */
+        html.gallery-open, body.gallery-open {
             overflow: hidden;
+            height: 100%;
         }
+        
+        body.pdf-viewer-open {
+             overflow: hidden;
+        }
+
         .lightbox-nav {
             transition: opacity 0.3s ease;
         }
@@ -130,14 +137,7 @@
 </head>
 <body class="text-gray-800">
     <script>
-        const isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true';
-        const loggedUser = sessionStorage.getItem('loggedInUser');
-        if (!isAuthenticated || !loggedUser) {
-            const navLink = document.createElement('a');
-            navLink.href = 'login.html';
-            document.body.appendChild(navLink);
-            navLink.click();
-        }
+        // Verificação de autenticação movida para dentro do DOMContentLoaded para maior estabilidade
     </script>
 
     <div id="hero-background" class="fixed top-0 left-0 w-full h-full -z-10">
@@ -426,13 +426,21 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true';
+            const loggedUser = sessionStorage.getItem('loggedInUser');
+            if (!isAuthenticated || !loggedUser) {
+                const navLink = document.createElement('a');
+                navLink.href = 'login.html';
+                document.body.appendChild(navLink);
+                navLink.click();
+            }
+
             const mainContent = document.getElementById('main-content');
             const fullGallery = document.getElementById('full-gallery');
             const showAllImagesBtn = document.getElementById('show-all-images-btn');
             const backToMainBtn = document.getElementById('back-to-main-btn');
             const backToMainBtnBottom = document.getElementById('back-to-main-btn-bottom');
             
-            // Lógica de abrir/fechar galeria replicada do exemplo funcional
             showAllImagesBtn.addEventListener('click', () => {
                 mainContent.classList.add('hidden');
                 fullGallery.classList.remove('hidden');
@@ -450,7 +458,6 @@
             backToMainBtn.addEventListener('click', closeGalleryAction);
             backToMainBtnBottom.addEventListener('click', closeGalleryAction);
 
-            // O restante do seu script...
             const header = document.getElementById('header');
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = document.querySelectorAll('#main-content section');
