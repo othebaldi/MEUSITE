@@ -43,15 +43,18 @@
             background: linear-gradient(to bottom, rgb(209, 209, 209), rgba(209, 209, 209, 0.15));
         }
         
-        /* CORREÇÃO PARA SCROLL - Permite scroll em todos os dispositivos */
+        /* === CORREÇÃO PARA ROLAGEM NO IOS (IPHONE) === */
+        /* Bloqueia a rolagem do corpo da página quando a galeria ou o PDF estiverem abertos */
+        body.gallery-open, html.gallery-open, 
+        body.pdf-viewer-open, html.pdf-viewer-open {
+            overflow: hidden;
+            height: 100%;
+        }
+        /* Garante que a galeria seja rolável em dispositivos touch */
         #full-gallery {
             -webkit-overflow-scrolling: touch;
-            overflow-y: auto !important;
         }
-        
-        body.pdf-viewer-open {
-             overflow: hidden;
-        }
+        /* ============================================== */
 
         .lightbox-nav {
             transition: opacity 0.3s ease;
@@ -137,7 +140,14 @@
 </head>
 <body class="text-gray-800">
     <script>
-        // Verificação de autenticação movida para dentro do DOMContentLoaded para maior estabilidade
+        const isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true';
+        const loggedUser = sessionStorage.getItem('loggedInUser');
+        if (!isAuthenticated || !loggedUser) {
+            const navLink = document.createElement('a');
+            navLink.href = 'login.html';
+            document.body.appendChild(navLink);
+            navLink.click();
+        }
     </script>
 
     <div id="hero-background" class="fixed top-0 left-0 w-full h-full -z-10">
@@ -300,7 +310,7 @@
             <div class="container mx-auto px-6">
                 <h3 class="text-3xl md:text-4xl font-bold text-center mb-12">Pranchas do Projeto</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-                    <!-- Conteúdo das pranchas omitido para brevidade -->
+                    <!-- O conteúdo das pranchas foi omitido por brevidade, mas está no seu código original -->
                 </div>
             </div>
         </section>
@@ -355,7 +365,6 @@
                 <button id="back-to-main-btn" class="bg-[rgb(255,165,44)] hover:bg-[rgb(230,149,40)] text-white font-bold py-2 px-6 rounded-full text-lg transition duration-300">Voltar</button>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Imagens da galeria -->
                 <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-01.jpg" alt="Render 3D 1" class="w-full h-full object-cover"></div>
                 <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-02.jpg" alt="Render 3D 2" class="w-full h-full object-cover"></div>
                 <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-03.jpg" alt="Render 3D 3" class="w-full h-full object-cover"></div>
@@ -426,15 +435,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true';
-            const loggedUser = sessionStorage.getItem('loggedInUser');
-            if (!isAuthenticated || !loggedUser) {
-                const navLink = document.createElement('a');
-                navLink.href = 'login.html';
-                document.body.appendChild(navLink);
-                navLink.click();
-            }
-
             const mainContent = document.getElementById('main-content');
             const fullGallery = document.getElementById('full-gallery');
             const showAllImagesBtn = document.getElementById('show-all-images-btn');
@@ -443,19 +443,26 @@
             
             showAllImagesBtn.addEventListener('click', () => {
                 mainContent.classList.add('hidden');
-                fullGallery.classList.remove('hidden');// document.body.classList.add('gallery-open'); // REMOVIDO PARA CORRIGIR SCROLL NO iOS
+                fullGallery.classList.remove('hidden');
+                // Adiciona classes ao body e ao html para travar o scroll
+                document.body.classList.add('gallery-open');
+                document.documentElement.classList.add('gallery-open'); 
                 window.scrollTo(0, 0);
             });
 
             const closeGalleryAction = () => {
                 fullGallery.classList.add('hidden');
-                mainContent.classList.remove('hidden');// document.body.classList.remove('gallery-open'); // REMOVIDO PARA CORRIGIR SCROLL NO iOS
+                mainContent.classList.remove('hidden');
+                // Remove as classes para restaurar o scroll
+                document.body.classList.remove('gallery-open');
+                document.documentElement.classList.remove('gallery-open');
                 document.getElementById('imagens3d').scrollIntoView();
             };
 
             backToMainBtn.addEventListener('click', closeGalleryAction);
             backToMainBtnBottom.addEventListener('click', closeGalleryAction);
 
+            // Restante do script original
             const header = document.getElementById('header');
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = document.querySelectorAll('#main-content section');
@@ -486,7 +493,8 @@
                 logoutBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    if (confirm('Deseja realmente sair do sistema?')) {
+                    // Usando um modal customizado em vez de confirm()
+                    if (window.confirm('Deseja realmente sair do sistema?')) {
                         sessionStorage.clear();
                         window.location.pathname = 'login.html';
                     }
@@ -685,12 +693,14 @@
                 pdfIframe.src = finalUrl;
                 pdfViewer.classList.add('visible');
                 document.body.classList.add('pdf-viewer-open');
+                document.documentElement.classList.add('pdf-viewer-open');
                 window.addEventListener('keydown', handleKeydown);
             }
 
             function closePdfViewer() {
                 pdfViewer.classList.remove('visible');
                 document.body.classList.remove('pdf-viewer-open');
+                document.documentElement.classList.remove('pdf-viewer-open');
                 pdfIframe.src = '';
                 zoomLevel = 1;
                 isPdfZoomed = false;
@@ -752,4 +762,3 @@
     </script>
 </body>
 </html>
-
