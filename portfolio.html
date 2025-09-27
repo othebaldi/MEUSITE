@@ -43,12 +43,11 @@
             background: linear-gradient(to bottom, rgb(209, 209, 209), rgba(209, 209, 209, 0.15));
         }
         
-        /* CORREÇÃO PARA SCROLL NO IOS */
-        html.gallery-open, body.gallery-open {
-            overflow: hidden;
-            height: 100%;
+        /* CORREÇÃO DEFINITIVA PARA SCROLL NO IOS */
+        #full-gallery {
+            -webkit-overflow-scrolling: touch; /* Garante a rolagem suave em dispositivos iOS */
         }
-        
+
         body.pdf-viewer-open {
              overflow: hidden;
         }
@@ -429,10 +428,8 @@
             const isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true';
             const loggedUser = sessionStorage.getItem('loggedInUser');
             if (!isAuthenticated || !loggedUser) {
-                const navLink = document.createElement('a');
-                navLink.href = 'login.html';
-                document.body.appendChild(navLink);
-                navLink.click();
+                // Usando um método de navegação mais simples
+                window.location.href = 'login.html';
             }
 
             const mainContent = document.getElementById('main-content');
@@ -442,17 +439,17 @@
             const backToMainBtnBottom = document.getElementById('back-to-main-btn-bottom');
             
             showAllImagesBtn.addEventListener('click', () => {
-                mainContent.classList.add('hidden');
-                fullGallery.classList.remove('hidden');
-                document.body.classList.add('gallery-open');
+                mainContent.style.display = 'none';
+                fullGallery.style.display = 'block';
+                // A classe 'gallery-open' não é mais necessária para o controle de rolagem
                 window.scrollTo(0, 0);
             });
 
             const closeGalleryAction = () => {
-                fullGallery.classList.add('hidden');
-                mainContent.classList.remove('hidden');
-                document.body.classList.remove('gallery-open');
-                document.getElementById('imagens3d').scrollIntoView();
+                fullGallery.style.display = 'none';
+                mainContent.style.display = 'block';
+                // Remove a classe que não é mais usada
+                document.getElementById('imagens3d').scrollIntoView({ behavior: 'smooth' });
             };
 
             backToMainBtn.addEventListener('click', closeGalleryAction);
@@ -488,9 +485,10 @@
                 logoutBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
+                    // Usando um modal customizado no futuro, por enquanto confirm
                     if (confirm('Deseja realmente sair do sistema?')) {
                         sessionStorage.clear();
-                        window.location.pathname = 'login.html';
+                        window.location.href = 'login.html';
                     }
                 });
             }
@@ -539,7 +537,7 @@
             document.querySelectorAll('.detail-section').forEach(section => observer.observe(section));
 
             window.addEventListener('scroll', function() {
-                if (document.body.classList.contains('gallery-open') || document.body.classList.contains('pdf-viewer-open')) return;
+                if (fullGallery.style.display === 'block' || document.body.classList.contains('pdf-viewer-open')) return;
 
                 const scrollPosition = window.scrollY;
                 const heroSectionHeight = document.getElementById('inicio').offsetHeight;
@@ -754,4 +752,3 @@
     </script>
 </body>
 </html>
-
