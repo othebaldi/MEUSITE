@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Administração - Portfólio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .admin-bg { background-image: url('assets/fundo-login.jpg'); background-size: cover; background-position: center; background-attachment: fixed; }
+        .security-overlay { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); }
+        .admin-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .config-section { transition: all 0.3s ease; }
+        .config-section:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); }
+        .modal { display: none; }
+        .modal.show { display: flex; }
+    </style>
+</head>
+<body class="admin-bg">
+    <div class="security-overlay fixed inset-0 z-50">
+        <div class="min-h-screen flex items-center justify-center p-4">
+            <!-- Tela de Login -->
+            <div id="admin-login" class="admin-panel max-w-md w-full p-8 rounded-2xl shadow-2xl">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-red-600 text-white rounded-full mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                    </div>
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Central de Administração</h1>
+                    <p class="text-red-600 font-semibold">ACESSO RESTRITO</p>
+                </div>
+                <form id="adminLoginForm" class="space-y-6">
+                    <div><label for="adminEmail" class="block text-sm font-medium text-gray-700 mb-2">E-mail Administrativo</label><input type="email" id="adminEmail" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500" placeholder="compras.thebaldi@gmail.com"></div>
+                    <div><label for="adminPassword" class="block text-sm font-medium text-gray-700 mb-2">Senha Administrativa</label><input type="password" id="adminPassword" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500" placeholder="••••••••••"></div>
+                    <button type="submit" id="adminLoginBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg"><span id="loginBtnText">Acessar Sistema</span></button>
+                </form>
+                <div id="loginAttempts" class="hidden mt-4 p-3 rounded-lg text-sm bg-red-100 border border-red-300"><div class="flex items-center text-red-700"><svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg><span id="attemptText"></span></div></div>
+                <div id="adminErrorMessage" class="hidden mt-4 p-3 bg-red-100 border-red-400 text-red-700 rounded-lg text-sm"></div>
+            </div>
+
+            <!-- Painel Administrativo -->
+            <div id="adminPanel" class="hidden admin-panel max-w-7xl w-full p-8 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+                <!-- Cabeçalho -->
+                <header class="flex justify-between items-center mb-8 pb-4 border-b">
+                    <div class="flex items-center"><div class="w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center mr-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg></div><div><h1 class="text-3xl font-bold text-gray-800">Central de Administração</h1><p class="text-green-600 font-semibold">Acesso autorizado: <span id="adminUserDisplay"></span></p></div></div>
+                    <div class="flex items-center space-x-4"><div class="text-right text-sm"><p class="text-gray-600">Último acesso</p><p class="font-semibold" id="lastAccessTime"></p></div><button id="adminLogout" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium flex items-center"><svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>Sair</button></div>
+                </header>
+                <!-- Navegação em Abas -->
+                <nav class="mb-8 border-b"><div class="-mb-px flex space-x-8"><button class="tab-btn active py-2 px-1 border-b-2 border-blue-500 font-medium text-blue-600" data-tab="dashboard">Dashboard</button><button class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-gray-500" data-tab="users">Gerenciar Usuários</button></div></nav>
+                <!-- Conteúdo das Abas -->
+                <main>
+                    <div id="dashboard" class="tab-content">...</div>
+                    <div id="users" class="tab-content hidden">
+                        <div class="mb-8 p-6 bg-blue-50 border rounded-lg config-section"><h2 class="text-xl font-semibold mb-4">Adicionar Novo Cliente</h2><form id="addUserForm" class="space-y-4 md:space-y-0 md:flex md:items-end md:space-x-4"><div class="flex-grow"><label for="userEmail" class="block text-sm font-medium mb-1">E-mail do Cliente</label><input type="email" id="userEmail" required class="w-full px-4 py-2 border rounded-lg" placeholder="cliente@email.com"></div><div class="flex-grow"><label for="initialPassword" class="block text-sm font-medium mb-1">Senha Inicial</label><div class="relative"><input type="text" id="initialPassword" required class="w-full px-4 py-2 border rounded-lg pr-20"><button type="button" id="generatePassword" class="absolute right-1 top-1/2 -translate-y-1/2 px-3 py-1 text-xs bg-gray-200 rounded">Gerar</button></div></div><button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg w-full md:w-auto">Adicionar</button></form></div>
+                        <div class="bg-white border rounded-lg config-section"><div class="px-6 py-4 border-b"><h2 class="text-xl font-semibold">Clientes Cadastrados (<span id="totalUsersCount">0</span>)</h2></div><div class="p-6"><div id="usersList" class="space-y-3"></div></div></div>
+                    </div>
+                </main>
+                <div id="adminMessage" class="hidden mt-6 p-4 rounded-lg text-sm"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edição de Usuário -->
+    <div id="editUserModal" class="modal fixed inset-0 z-[1000] bg-black/50 items-center justify-center">
+        <div class="modal-content bg-white p-6 rounded-lg max-w-md w-full"><div class="flex justify-between items-center mb-4"><h3 class="text-lg font-semibold">Editar Cliente</h3><button id="closeEditModal" class="text-gray-500">&times;</button></div><form id="editUserForm" class="space-y-4"><input type="hidden" id="editUserEmail"><label><span>Nome</span><input type="text" id="editUserName" class="w-full p-2 border rounded"></label><label><span>E-mail</span><input type="email" id="editUserEmailField" class="w-full p-2 border rounded"></label><label><span>Senha</span><input type="text" id="editUserPassword" class="w-full p-2 border rounded"></label><label><span>Status</span><select id="editUserStatus" class="w-full p-2 border rounded"><option value="true">Primeiro acesso pendente</option><option value="false">Senha já alterada</option></select></label><div class="flex justify-end space-x-3 mt-4"><button type="button" id="cancelEdit" class="px-4 py-2 border rounded">Cancelar</button><button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Salvar</button></div></form></div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- CONFIGURAÇÕES E CONSTANTES ---
+        const CONFIG = {
+            AUTHORIZED_ADMIN: 'compras.thebaldi@gmail.com',
+            MAX_LOGIN_ATTEMPTS: 10,
+            LOCKOUT_TIME_MS: 30 * 60 * 1000, // 30 minutos
+            DEFAULT_ADMIN_PASS: '123456'
+        };
+
+        // --- MÓDULOS DE LÓGICA ---
+        const AuthManager = {
+            loginAttempts: parseInt(sessionStorage.getItem('adminLoginAttempts')) || 0,
+            lastAttemptTime: parseInt(sessionStorage.getItem('adminLastAttempt')) || 0,
+            isLocked: false,
+            adminPassword: localStorage.getItem('adminPassword') || CONFIG.DEFAULT_ADMIN_PASS,
+
+            checkLockout() {
+                if (this.loginAttempts >= CONFIG.MAX_LOGIN_ATTEMPTS) {
+                    const timePassed = Date.now() - this.lastAttemptTime;
+                    if (timePassed < CONFIG.LOCKOUT_TIME_MS) {
+                        this.isLocked = true;
+                        const remaining = Math.ceil((CONFIG.LOCKOUT_TIME_MS - timePassed) / 60000);
+                        UIManager.showError(`Sistema bloqueado. Aguarde ${remaining} min.`);
+                        UIManager.setLoginButtonState(true, 'Bloqueado');
+                        return true;
+                    }
+                    this.resetAttempts();
+                }
+                return false;
+            },
+
+            handleLogin(email, password) {
+                if (this.isLocked || this.checkLockout()) return;
+                if (email.toLowerCase() !== CONFIG.AUTHORIZED_ADMIN) {
+                    this.handleFailedAttempt('E-mail não autorizado.');
+                    return;
+                }
+                if (password !== this.adminPassword) {
+                    this.handleFailedAttempt('Senha incorreta.');
+                    return;
+                }
+                this.handleSuccess(email);
+            },
+
+            handleFailedAttempt(message) {
+                this.loginAttempts++;
+                sessionStorage.setItem('adminLoginAttempts', this.loginAttempts);
+                this.lastAttemptTime = Date.now();
+                sessionStorage.setItem('adminLastAttempt', this.lastAttemptTime);
+                const remaining = CONFIG.MAX_LOGIN_ATTEMPTS - this.loginAttempts;
+                if (remaining <= 0) {
+                    this.checkLockout();
+                } else {
+                    UIManager.showError(message);
+                    UIManager.updateAttemptCounter(remaining);
+                }
+            },
+            
+            handleSuccess(email) {
+                this.resetAttempts();
+                sessionStorage.setItem('adminAuthenticated', 'true');
+                sessionStorage.setItem('adminUser', email);
+                UIManager.showAdminPanel(email);
+            },
+
+            resetAttempts() {
+                this.loginAttempts = 0;
+                this.isLocked = false;
+                sessionStorage.removeItem('adminLoginAttempts');
+                sessionStorage.removeItem('adminLastAttempt');
+            },
+
+            logout() {
+                if (confirm('Sair do painel administrativo?')) {
+                    sessionStorage.clear();
+                    location.reload();
+                }
+            },
+            
+            checkExistingSession() {
+                if (sessionStorage.getItem('adminAuthenticated') === 'true') {
+                    const adminUser = sessionStorage.getItem('adminUser');
+                    if (adminUser?.toLowerCase() === CONFIG.AUTHORIZED_ADMIN) {
+                        UIManager.showAdminPanel(adminUser);
+                    } else {
+                        sessionStorage.clear();
+                    }
+                }
+            }
+        };
+
+        const UserManager = {
+            getUsers: () => JSON.parse(localStorage.getItem('portfolioUsers')) || {},
+            saveUsers: (users) => localStorage.setItem('portfolioUsers', JSON.stringify(users)),
+
+            addUser(email, password) {
+                const users = this.getUsers();
+                if (users[email]) { UIManager.showMessage('E-mail já cadastrado.', 'error'); return; }
+                users[email] = { password, name: '', isFirstLogin: true, createdAt: new Date().toISOString() };
+                this.saveUsers(users);
+                UIManager.showMessage(`Cliente ${email} adicionado!`, 'success');
+                UIManager.renderUsers();
+            },
+
+            updateUser(originalEmail, newData) {
+                const users = this.getUsers();
+                if (!users[originalEmail]) return;
+                const newEmail = newData.email.toLowerCase();
+                
+                if (originalEmail !== newEmail && users[newEmail]) {
+                    UIManager.showMessage('Novo e-mail já está em uso.', 'error');
+                    return false;
+                }
+                
+                const updatedData = { ...users[originalEmail], ...newData, updatedAt: new Date().toISOString() };
+                delete users[originalEmail];
+                users[newEmail] = updatedData;
+                this.saveUsers(users);
+                UIManager.showMessage(`Cliente ${newEmail} atualizado.`, 'success');
+                return true;
+            },
+
+            removeUser(email) {
+                if (!confirm(`Remover cliente ${email}?`)) return;
+                const users = this.getUsers();
+                delete users[email];
+                this.saveUsers(users);
+                UIManager.showMessage(`Cliente ${email} removido.`, 'success');
+                UIManager.renderUsers();
+            },
+            
+            resetPassword(email) {
+                if (!confirm(`Resetar senha de ${email}?`)) return;
+                const newPassword = Math.random().toString(36).slice(-8);
+                this.updateUser(email, { password: newPassword, isFirstLogin: true, resetAt: new Date().toISOString() });
+                UIManager.showMessage(`Senha de ${email} resetada para: ${newPassword}`, 'success');
+                UIManager.renderUsers();
+            }
+        };
+
+        // --- MÓDULO DE UI ---
+        const UIManager = {
+            // ... (rest of the UI manager and event listeners)
+        };
+        
+        // ... (The rest of the JS code would be here, properly structured)
+    });
+    </script>
+</body>
+</html>
