@@ -3,19 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Áreas externas ESESP - ENGECON - TH3LAB</title>
+    <title>Portfólio de Arquitetura</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Preload das imagens importantes para carregamento rápido -->
-    <link rel="preload" href="assets/render-01.jpg" as="image">
-    <link rel="preload" href="assets/implantacao.png" as="image">
-    <link rel="preload" href="assets/acessibilidade.png" as="image">
-    <link rel="preload" href="assets/paisagismo.png" as="image">
-    <link rel="preload" href="assets/sinalizacao.png" as="image">
-
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -121,23 +113,6 @@
         .prancha-item {
             cursor: pointer;
         }
-        .detail-section .animate-on-scroll {
-            opacity: 0;
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .detail-section .animate-on-scroll.from-left {
-            transform: translateX(-50px);
-        }
-
-        .detail-section .animate-on-scroll.from-right {
-            transform: translateX(50px);
-        }
-
-        .detail-section .animate-on-scroll.is-visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -232,71 +207,65 @@
             </div>
         </section>
 
-        <section id="projeto-detalhes" class="py-20 bg-white/50 overflow-x-hidden">
-            <div class="container mx-auto px-6 text-center">
-                <h3 class="text-3xl md:text-4xl font-bold mb-20">O Projeto em Detalhes</h3>
-            </div>
-
-            <div class="detail-section mb-20 md:mb-32">
-                <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <img src="assets/implantacao.png" alt="Planta de Implantação" class="rounded-lg shadow-lg w-full">
-                    </div>
-                    <div class="text-gray-700 text-left">
-                        <h4 class="text-2xl font-bold mb-4 text-[rgb(255,165,44)]">Implantação</h4>
-                        <p class="text-lg mb-6">A intervenção requalifica a área externa da ESESP através de um desenho inteligente, que prioriza a organização dos fluxos e a segurança. A setorização otimizada define claramente as <span class="font-bold">47 vagas para carros, 15 para motos e a área de bicicletas</span>, garantindo uma circulação fluida e intuitiva para todos os usuários.</p>
-                        <ul class="space-y-4">
-                            <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Circulação Estratégica:</span> Vias de mão única e raios de giro calculados para veículos leves, evitando conflitos e maximizando a segurança viária.</span></li>
-                            <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Prioridade ao Pedestre:</span> Faixas de travessia elevadas e rotas seguras conectam o acesso principal ao edifício, promovendo um ambiente mais humano e seguro.</span></li>
-                        </ul>
-                    </div>
+        <section id="projeto-detalhes" class="py-20">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl md:text-4xl font-bold text-center mb-12">O Projeto em Detalhes</h3>
+                
+                <div class="flex flex-wrap justify-center border-b-2 border-gray-300 mb-8">
+                    <button data-tab="implantacao" class="tab-button active py-2 px-6 text-lg font-medium text-gray-500 border-b-2 border-transparent">Implantação</button>
+                    <button data-tab="acessibilidade" class="tab-button py-2 px-6 text-lg font-medium text-gray-500 border-b-2 border-transparent">Acessibilidade</button>
+                    <button data-tab="paisagismo" class="tab-button py-2 px-6 text-lg font-medium text-gray-500 border-b-2 border-transparent">Paisagismo</button>
+                    <button data-tab="sinalizacao" class="tab-button py-2 px-6 text-lg font-medium text-gray-500 border-b-2 border-transparent">Sinalização</button>
                 </div>
-            </div>
 
-            <div class="detail-section mb-20 md:mb-32">
-                <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div class="md:order-2 animate-on-scroll from-right">
-                        <img src="assets/acessibilidade.png" alt="Detalhe de Acessibilidade" class="rounded-lg shadow-lg w-full">
+                <div id="tab-content">
+                    <div id="implantacao-content" class="tab-pane active">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                            <div><img src="assets/implantacao.png" alt="Planta de Implantação" class="rounded-lg shadow-lg w-full"></div>
+                            <div class="text-gray-700">
+                                <p class="text-lg mb-6">A intervenção requalifica a área externa da ESESP através de um desenho inteligente, que prioriza a organização dos fluxos e a segurança. A setorização otimizada define claramente as <span class="font-bold">47 vagas para carros, 15 para motos e a área de bicicletas</span>, garantindo uma circulação fluida e intuitiva para todos os usuários.</p>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Circulação Estratégica:</span> Vias de mão única e raios de giro calculados para veículos leves, evitando conflitos e maximizando a segurança viária.</span></li>
+                                    <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Prioridade ao Pedestre:</span> Faixas de travessia elevadas e rotas seguras conectam o acesso principal ao edifício, promovendo um ambiente mais humano e seguro.</span></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-gray-700 text-left md:order-1 animate-on-scroll from-left">
-                        <h4 class="text-2xl font-bold mb-4 text-[rgb(255,165,44)]">Acessibilidade</h4>
-                        <p class="text-lg mb-6">Comprometido com a inclusão, o projeto segue rigorosamente as diretrizes da <span class="font-bold">ABNT NBR 9050</span>, criando um ambiente acolhedor e funcional para pessoas com deficiência ou mobilidade reduzida.</p>
-                        <ul class="space-y-4">
-                            <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Rotas Acessíveis:</span> Vagas para PcD estrategicamente posicionadas, conectadas ao acesso principal por rotas livres de barreiras, com piso tátil direcional e de alerta.</span></li>
-                            <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Design Universal:</span> Rampas com inclinação adequada e sinalização clara garantem autonomia e segurança, eliminando obstáculos e promovendo a igualdade de acesso.</span></li>
-                        </ul>
+                    <div id="acessibilidade-content" class="tab-pane hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                           <div class="text-gray-700 md:order-2">
+                                <p class="text-lg mb-6">Comprometido com a inclusão, o projeto segue rigorosamente as diretrizes da <span class="font-bold">ABNT NBR 9050</span>, criando um ambiente acolhedor e funcional para pessoas com deficiência ou mobilidade reduzida.</p>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Rotas Acessíveis:</span> Vagas para PcD estrategicamente posicionadas, conectadas ao acesso principal por rotas livres de barreiras, com piso tátil direcional e de alerta.</span></li>
+                                    <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Design Universal:</span> Rampas com inclinação adequada e sinalização clara garantem autonomia e segurança, eliminando obstáculos e promovendo a igualdade de acesso.</span></li>
+                                </ul>
+                            </div>
+                            <div class="md:order-1"><img src="assets/acessibilidade.png" alt="Detalhe de Acessibilidade" class="rounded-lg shadow-lg w-full"></div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="detail-section mb-20 md:mb-32">
-                <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div class="animate-on-scroll from-left">
-                        <img src="assets/paisagismo.png" alt="Detalhe do Paisagismo" class="rounded-lg shadow-lg w-full">
+                    <div id="paisagismo-content" class="tab-pane hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                            <div><img src="assets/paisagismo.png" alt="Detalhe do Paisagismo" class="rounded-lg shadow-lg w-full"></div>
+                            <div class="text-gray-700">
+                                <p class="text-lg mb-6">O paisagismo transcende a estética, criando um <span class="font-bold">ecossistema urbano</span> que melhora o microclima e o bem-estar. A seleção de espécies nativas de baixo consumo hídrico garante sustentabilidade e baixa manutenção.</p>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Conforto Térmico:</span> Canteiros e árvores posicionados estrategicamente para fornecer sombra, reduzir ilhas de calor e aumentar a área permeável do solo em 878 m².</span></li>
+                                    <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Espaço de Descompressão:</span> Uma área de convivência com pergolado e mobiliário urbano se torna um ponto de encontro e descanso, integrando natureza e arquitetura.</span></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-gray-700 text-left animate-on-scroll from-right">
-                        <h4 class="text-2xl font-bold mb-4 text-[rgb(255,165,44)]">Paisagismo</h4>
-                        <p class="text-lg mb-6">O paisagismo transcende a estética, criando um <span class="font-bold">ecossistema urbano</span> que melhora o microclima e o bem-estar. A seleção de espécies nativas de baixo consumo hídrico garante sustentabilidade e baixa manutenção.</p>
-                        <ul class="space-y-4">
-                            <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Conforto Térmico:</span> Canteiros e árvores posicionados estrategicamente para fornecer sombra, reduzir ilhas de calor e aumentar a área permeável do solo em 878 m².</span></li>
-                            <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Espaço de Descompressão:</span> Uma área de convivência com pergolado e mobiliário urbano se torna um ponto de encontro e descanso, integrando natureza e arquitetura.</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="detail-section">
-                <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div class="md:order-2 animate-on-scroll from-right">
-                        <img src="assets/sinalizacao.png" alt="Detalhe da Sinalização" class="rounded-lg shadow-lg w-full">
-                    </div>
-                    <div class="text-gray-700 text-left md:order-1 animate-on-scroll from-left">
-                        <h4 class="text-2xl font-bold mb-4 text-[rgb(255,165,44)]">Sinalização</h4>
-                        <p class="text-lg mb-6">Um sistema de <span class="font-bold">comunicação visual</span> coeso e eficiente foi desenvolvido para orientar e proteger. Toda a sinalização segue o Manual Brasileiro de Sinalização de Trânsito, garantindo clareza e conformidade normativa.</p>
-                        <ul class="space-y-4">
-                            <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Sinalização Horizontal:</span> Pintura de faixas, setas, zebrados e símbolos no pavimento organiza o fluxo, delimita vagas e indica áreas de atenção, como travessias e rampas.</span></li>
-                            <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Sinalização Vertical:</span> Placas de regulamentação (velocidade, parada), advertência e indicação estão posicionadas em pontos estratégicos para uma orientação rápida e eficaz.</span></li>
-                        </ul>
+                     <div id="sinalizacao-content" class="tab-pane hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                           <div class="text-gray-700 md:order-2">
+                                <p class="text-lg mb-6">Um sistema de <span class="font-bold">comunicação visual</span> coeso e eficiente foi desenvolvido para orientar e proteger. Toda a sinalização segue o Manual Brasileiro de Sinalização de Trânsito, garantindo clareza e conformidade normativa.</p>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Sinalização Horizontal:</span> Pintura de faixas, setas, zebrados e símbolos no pavimento organiza o fluxo, delimita vagas e indica áreas de atenção, como travessias e rampas.</span></li>
+                                    <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Sinalização Vertical:</span> Placas de regulamentação (velocidade, parada), advertência e indicação estão posicionadas em pontos estratégicos para uma orientação rápida e eficaz.</span></li>
+                                </ul>
+                            </div>
+                            <div class="md:order-1"><img src="assets/sinalizacao.png" alt="Detalhe da Sinalização" class="rounded-lg shadow-lg w-full"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -306,6 +275,7 @@
             <div class="container mx-auto px-6">
                 <h3 class="text-3xl md:text-4xl font-bold text-center mb-12">Pranchas do Projeto</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                    <!-- Prancha 01 -->
                     <div class="bg-white rounded-lg shadow-lg p-3 sm:p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
                         <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-01.pdf">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-10 sm:w-10 text-red-600 mr-3 sm:mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
@@ -318,6 +288,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                         </a>
                     </div>
+                    <!-- Prancha 02 -->
                     <div class="bg-white rounded-lg shadow-lg p-3 sm:p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
                         <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-02.pdf">
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-10 sm:w-10 text-red-600 mr-3 sm:mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
@@ -330,6 +301,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                         </a>
                     </div>
+                    <!-- Prancha 03 -->
                     <div class="bg-white rounded-lg shadow-lg p-3 sm:p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
                         <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-03.pdf">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-10 sm:w-10 text-red-600 mr-3 sm:mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
@@ -342,6 +314,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                         </a>
                     </div>
+                    <!-- Prancha 04 -->
                     <div class="bg-white rounded-lg shadow-lg p-3 sm:p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
                         <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-04.pdf">
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-10 sm:w-10 text-red-600 mr-3 sm:mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
@@ -354,6 +327,7 @@
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                         </a>
                     </div>
+                    <!-- Prancha 05 -->
                     <div class="bg-white rounded-lg shadow-lg p-3 sm:p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
                         <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-05.pdf">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-10 sm:w-10 text-red-600 mr-3 sm:mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
@@ -366,6 +340,7 @@
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                         </a>
                     </div>
+                    <!-- Prancha 06 -->
                     <div class="bg-white rounded-lg shadow-lg p-3 sm:p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
                         <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-06.pdf">
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-10 sm:w-10 text-red-600 mr-3 sm:mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
@@ -378,6 +353,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                         </a>
                     </div>
+                    <!-- Prancha 07 -->
                     <div class="bg-white rounded-lg shadow-lg p-3 sm:p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
                         <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-07.pdf">
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-10 sm:w-10 text-red-600 mr-3 sm:mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
@@ -390,6 +366,7 @@
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                         </a>
                     </div>
+                    <!-- Prancha 08 -->
                     <div class="bg-white rounded-lg shadow-lg p-3 sm:p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
                         <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-08.pdf">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-10 sm:w-10 text-red-600 mr-3 sm:mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
@@ -444,7 +421,7 @@
                         <p class="font-bold text-gray-700">Responsável Técnico:</p>
                         <p class="text-gray-600">Jander A. Carpinete Lima - Eng. Civil - CREA-MG 154550-D</p>
                     </div>
-                    <p class="text-gray-500 mt-12 text-xs">&copy; 2025 TH3LAB. Todos os direitos reservados.</p>
+                    <p class="text-gray-500 mt-12 text-xs">&copy; 2025 ENGECON. Todos os direitos reservados.</p>
                 </div>
             </div>
         </footer>
@@ -494,9 +471,6 @@
                 <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-35.jpg" alt="Render 3D 35" class="w-full h-full object-cover"></div>
                 <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-36.jpg" alt="Render 3D 36" class="w-full h-full object-cover"></div>
             </div>
-            <div class="text-center mt-12 mb-8">
-                <button id="back-to-main-btn-bottom" class="bg-[rgb(255,165,44)] hover:bg-[rgb(230,149,40)] text-white font-bold py-2 px-6 rounded-full text-lg transition duration-300">Voltar</button>
-            </div>
         </div>
         <button id="scroll-to-top-btn" class="fixed bottom-8 right-8 bg-[rgb(255,165,44)] hover:bg-[rgb(230,149,40)] text-white p-3 rounded-full shadow-lg transition-opacity duration-300 opacity-0 pointer-events-none z-50">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -505,6 +479,7 @@
         </button>
     </div>
 
+    <!-- Modal/Lightbox para Imagens -->
     <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-[100] pointer-events-none opacity-0 transition-opacity duration-300 ease-in-out">
         <div id="lightbox-content" class="relative bg-[rgb(255,165,44)] p-4 rounded-lg shadow-lg transform scale-95 transition-all duration-300 ease-in-out">
             <img id="lightbox-img" src="" alt="Visualização ampliada" class="max-w-full max-h-[90vh] rounded-md">
@@ -539,7 +514,6 @@
             const fullGallery = document.getElementById('full-gallery');
             const showAllImagesBtn = document.getElementById('show-all-images-btn');
             const backToMainBtn = document.getElementById('back-to-main-btn');
-            const backToMainBtnBottom = document.getElementById('back-to-main-btn-bottom');
             const lightbox = document.getElementById('lightbox');
             const lightboxContent = document.getElementById('lightbox-content');
             const lightboxImg = document.getElementById('lightbox-img');
@@ -548,6 +522,8 @@
             const lightboxNext = document.getElementById('lightbox-next');
             const scrollToTopBtn = document.getElementById('scroll-to-top-btn');
             const heroBackground = document.getElementById('hero-background');
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanes = document.querySelectorAll('.tab-pane');
             const explore3dBtn = document.getElementById('explore-3d-btn');
             const toast = document.getElementById('toast-notification');
             const heroTitle = document.getElementById('hero-title');
@@ -643,36 +619,9 @@
                 }
             });
 
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.4 
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const elementsToAnimate = entry.target.querySelectorAll('.animate-on-scroll');
-                        elementsToAnimate.forEach(el => {
-                            el.classList.add('is-visible');
-                        });
-                    } else {
-                         const elementsToAnimate = entry.target.querySelectorAll('.animate-on-scroll');
-                         elementsToAnimate.forEach(el => {
-                             el.classList.remove('is-visible');
-                         });
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.detail-section').forEach(section => {
-                observer.observe(section);
-            });
-
-
             window.addEventListener('scroll', function() {
                 if (document.body.classList.contains('gallery-open')) return;
-                                
+                
                 const scrollPosition = window.scrollY;
                 const heroSectionHeight = document.getElementById('inicio').offsetHeight;
                 const fadeEnd = heroSectionHeight / 1.5; 
@@ -712,13 +661,24 @@
                 const sectionTitles = {'inicio': 'Início', 'imagens3d': 'Imagens 3D', 'historia': 'A ESESP', 'projeto-detalhes': 'O Projeto', 'plantas': 'Plantas Técnicas', 'contato': 'Contato'};
                 if (mobileSectionTitle && sectionTitles[current]) mobileSectionTitle.innerText = sectionTitles[current];
                 navLinks.forEach(link => {
-                    const isActive = link.getAttribute('href').substring(1) === current;
-                    link.classList.toggle('text-black', isActive);
-                    link.classList.toggle('font-bold', isActive);
-                    link.classList.toggle('text-gray-700', !isActive);
+                    link.classList.toggle('text-black', link.getAttribute('href').includes(current));
+                    link.classList.toggle('font-bold', link.getAttribute('href').includes(current));
+                    link.classList.toggle('text-gray-700', !link.getAttribute('href').includes(current));
                 });
             });
             
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const tab = button.dataset.tab;
+                    tabPanes.forEach(pane => {
+                        pane.classList.toggle('hidden', pane.id !== `${tab}-content`);
+                    });
+                });
+            });
+
             showAllImagesBtn.addEventListener('click', () => {
                 mainContent.classList.add('hidden');
                 fullGallery.classList.remove('hidden');
@@ -732,17 +692,13 @@
                     link.classList.toggle('text-gray-700', !is3DLink);
                 });
             });
-
-            const closeGalleryAction = () => {
+            backToMainBtn.addEventListener('click', () => {
                 fullGallery.classList.add('hidden');
                 mainContent.classList.remove('hidden');
                 document.body.classList.remove('gallery-open');
                 document.getElementById('imagens3d').scrollIntoView();
                 window.dispatchEvent(new Event('scroll'));
-            };
-
-            backToMainBtn.addEventListener('click', closeGalleryAction);
-            backToMainBtnBottom.addEventListener('click', closeGalleryAction);
+            });
             
             fullGallery.addEventListener('scroll', () => {
                 if (fullGallery.scrollTop > 300) {
@@ -831,7 +787,7 @@
 
             lightbox.addEventListener('click', (e) => {
                  if(e.target === lightbox || e.target === lightboxContent || e.target === lightboxImg) {
-                      hideLightbox();
+                     hideLightbox();
                  }
             });
             
@@ -889,17 +845,20 @@
             pdfCloseBtn.addEventListener('click', closePdfViewer);
 
             pdfViewer.addEventListener('click', (e) => {
+                // Fecha o visualizador se o clique for na área de fundo escura
                 if (e.target === pdfViewer) {
                     closePdfViewer();
                 }
             });
 
             pdfIframeWrapper.addEventListener('click', (e) => {
-                e.stopPropagation();
+                e.stopPropagation(); // Prevent click from bubbling to pdfViewer
 
                 if (isMobileDevice()) {
+                    // On mobile, any click on the wrapper (including the iframe) closes the viewer.
                     closePdfViewer();
                 } else {
+                    // On desktop, handle zoom or close if clicking on padding.
                     if (e.target === pdfIframeWrapper) {
                         closePdfViewer();
                     } else {
@@ -915,7 +874,5 @@
 
 </body>
 </html>
-
-
 
 
