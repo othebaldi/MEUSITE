@@ -37,7 +37,7 @@
         #header.scrolled {
             background: linear-gradient(to bottom, rgb(209, 209, 209), rgba(209, 209, 209, 0.15));
         }
-        body.gallery-open {
+        body.gallery-open, body.pdf-viewer-open {
             overflow: hidden;
         }
         .lightbox-nav {
@@ -56,6 +56,44 @@
         #hero-title, #hero-subtitle, #hero-address, #hero-stats, #hero-button {
             will-change: transform, opacity;
             transition: transform 0.1s linear, opacity 0.1s linear;
+        }
+        .pdf-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 110;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .pdf-viewer.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .pdf-viewer iframe {
+            width: 90%;
+            height: 90%;
+            max-width: 1200px;
+            border: 2px solid rgb(255, 165, 44);
+            border-radius: 8px;
+        }
+        .pdf-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .prancha-item {
+            cursor: pointer;
         }
     </style>
 </head>
@@ -224,13 +262,106 @@
             </div>
         </section>
 
-
         <section id="plantas" class="py-20 bg-white/50">
             <div class="container mx-auto px-6">
                 <h3 class="text-3xl md:text-4xl font-bold text-center mb-12">Pranchas do Projeto</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    <div class="bg-white rounded-lg p-4 shadow-lg"><img src="https://placehold.co/800x600/FFFFFF/000000?text=Prancha+01/08" alt="Prancha 01/08" class="rounded-md"><p class="text-black text-center mt-4 font-semibold">Prancha 01/08 - Implantação Geral</p></div>
-                    <div class="bg-white rounded-lg p-4 shadow-lg"><img src="https://placehold.co/800x600/FFFFFF/000000?text=Prancha+08/08" alt="Prancha 08/08" class="rounded-md"><p class="text-black text-center mt-4 font-semibold">Prancha 08/08 - Sinalização Horizontal</p></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+                    <!-- Prancha 01 -->
+                    <div class="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center justify-between transition-transform transform hover:scale-105">
+                        <div class="prancha-item w-full" data-pdf-src="assets/prancha-01.pdf">
+                            <img src="https://placehold.co/400x565/FFFFFF/000000?text=Prancha+01/08" alt="Prancha 01/08" class="rounded-md w-full">
+                            <p class="text-black text-center mt-4 font-semibold">Implantação Geral</p>
+                        </div>
+                        <a href="assets/prancha-01.pdf" download class="mt-4 text-gray-600 hover:text-[rgb(255,165,44)] transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- Prancha 02 -->
+                    <div class="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center justify-between transition-transform transform hover:scale-105">
+                        <div class="prancha-item w-full" data-pdf-src="assets/prancha-02.pdf">
+                            <img src="https://placehold.co/400x565/FFFFFF/000000?text=Prancha+02/08" alt="Prancha 02/08" class="rounded-md w-full">
+                            <p class="text-black text-center mt-4 font-semibold">Layout e Paginação</p>
+                        </div>
+                        <a href="assets/prancha-02.pdf" download class="mt-4 text-gray-600 hover:text-[rgb(255,165,44)] transition-colors">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- Prancha 03 -->
+                    <div class="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center justify-between transition-transform transform hover:scale-105">
+                        <div class="prancha-item w-full" data-pdf-src="assets/prancha-03.pdf">
+                            <img src="https://placehold.co/400x565/FFFFFF/000000?text=Prancha+03/08" alt="Prancha 03/08" class="rounded-md w-full">
+                            <p class="text-black text-center mt-4 font-semibold">Seções e Elevações</p>
+                        </div>
+                        <a href="assets/prancha-03.pdf" download class="mt-4 text-gray-600 hover:text-[rgb(255,165,44)] transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- Prancha 04 -->
+                    <div class="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center justify-between transition-transform transform hover:scale-105">
+                         <div class="prancha-item w-full" data-pdf-src="assets/prancha-04.pdf">
+                            <img src="https://placehold.co/400x565/FFFFFF/000000?text=Prancha+04/08" alt="Prancha 04/08" class="rounded-md w-full">
+                            <p class="text-black text-center mt-4 font-semibold">Detalhes Construtivos</p>
+                        </div>
+                        <a href="assets/prancha-04.pdf" download class="mt-4 text-gray-600 hover:text-[rgb(255,165,44)] transition-colors">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- Prancha 05 -->
+                    <div class="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center justify-between transition-transform transform hover:scale-105">
+                        <div class="prancha-item w-full" data-pdf-src="assets/prancha-05.pdf">
+                            <img src="https://placehold.co/400x565/FFFFFF/000000?text=Prancha+05/08" alt="Prancha 05/08" class="rounded-md w-full">
+                            <p class="text-black text-center mt-4 font-semibold">Paisagismo</p>
+                        </div>
+                        <a href="assets/prancha-05.pdf" download class="mt-4 text-gray-600 hover:text-[rgb(255,165,44)] transition-colors">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- Prancha 06 -->
+                    <div class="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center justify-between transition-transform transform hover:scale-105">
+                         <div class="prancha-item w-full" data-pdf-src="assets/prancha-06.pdf">
+                            <img src="https://placehold.co/400x565/FFFFFF/000000?text=Prancha+06/08" alt="Prancha 06/08" class="rounded-md w-full">
+                            <p class="text-black text-center mt-4 font-semibold">Mob. Urbano e Pergolado</p>
+                        </div>
+                        <a href="assets/prancha-06.pdf" download class="mt-4 text-gray-600 hover:text-[rgb(255,165,44)] transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- Prancha 07 -->
+                    <div class="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center justify-between transition-transform transform hover:scale-105">
+                        <div class="prancha-item w-full" data-pdf-src="assets/prancha-07.pdf">
+                            <img src="https://placehold.co/400x565/FFFFFF/000000?text=Prancha+07/08" alt="Prancha 07/08" class="rounded-md w-full">
+                            <p class="text-black text-center mt-4 font-semibold">Sinalização Vertical</p>
+                        </div>
+                        <a href="assets/prancha-07.pdf" download class="mt-4 text-gray-600 hover:text-[rgb(255,165,44)] transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- Prancha 08 -->
+                    <div class="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center justify-between transition-transform transform hover:scale-105">
+                        <div class="prancha-item w-full" data-pdf-src="assets/prancha-08.pdf">
+                            <img src="https://placehold.co/400x565/FFFFFF/000000?text=Prancha+08/08" alt="Prancha 08/08" class="rounded-md w-full">
+                            <p class="text-black text-center mt-4 font-semibold">Sinalização Horizontal</p>
+                        </div>
+                        <a href="assets/prancha-08.pdf" download class="mt-4 text-gray-600 hover:text-[rgb(255,165,44)] transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -344,6 +475,11 @@
       Este projeto 3D só pode ser explorado no computador. O link foi copiado para você enviar e abrir em um PC.
     </div>
 
+    <div id="pdf-viewer" class="pdf-viewer">
+        <span id="pdf-close-btn" class="pdf-close-btn">&times;</span>
+        <iframe id="pdf-iframe" src="" frameborder="0"></iframe>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const audio = document.getElementById('background-music');
@@ -375,6 +511,10 @@
             const heroAddress = document.getElementById('hero-address');
             const heroStats = document.getElementById('hero-stats');
             const heroButton = document.getElementById('hero-button');
+            const pdfViewer = document.getElementById('pdf-viewer');
+            const pdfIframe = document.getElementById('pdf-iframe');
+            const pdfCloseBtn = document.getElementById('pdf-close-btn');
+            const pranchaItems = document.querySelectorAll('.prancha-item');
             
             let isPlaying = false;
             let wasPlayingBeforeHidden = false;
@@ -556,9 +696,13 @@
             }
             
             const handleKeydown = (e) => {
-                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') showNextImage();
-                else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') showPrevImage();
-                else if (e.key === 'Escape') hideLightbox();
+                if (e.key === 'Escape' && lightbox.classList.contains('opacity-0') && pdfViewer.classList.contains('visible')) {
+                    closePdfViewer();
+                } else if (!pdfViewer.classList.contains('visible')) {
+                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') showNextImage();
+                    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') showPrevImage();
+                    else if (e.key === 'Escape') hideLightbox();
+                }
             };
 
             function showLightbox(item) {
@@ -632,13 +776,38 @@
                     window.open(link, '_blank');
                 }
             });
+
+            function openPdfViewer(url) {
+                pdfIframe.src = url;
+                pdfViewer.classList.add('visible');
+                document.body.classList.add('pdf-viewer-open');
+                window.addEventListener('keydown', handleKeydown);
+            }
+
+            function closePdfViewer() {
+                pdfViewer.classList.remove('visible');
+                document.body.classList.remove('pdf-viewer-open');
+                pdfIframe.src = '';
+                window.removeEventListener('keydown', handleKeydown);
+            }
+
+            pranchaItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    openPdfViewer(item.dataset.pdfSrc);
+                });
+            });
+
+            pdfCloseBtn.addEventListener('click', closePdfViewer);
+
+            pdfViewer.addEventListener('click', (e) => {
+                if (e.target === pdfViewer) {
+                    closePdfViewer();
+                }
+            });
+
         });
     </script>
 
 </body>
 </html>
-
-
-
-
 
