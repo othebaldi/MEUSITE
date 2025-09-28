@@ -114,12 +114,18 @@
             cursor: pointer;
         }
         .detail-pane {
-            /* Usando uma transição linear e rápida para mapear diretamente a rolagem */
-            transition: opacity 0.2s linear;
+            transition: opacity 0.8s ease-in-out;
         }
-        .detail-pane .pane-content {
-             /* Adicionando uma transição para o efeito de paralaxe */
-            transition: transform 0.2s linear;
+        .detail-pane .pane-content > * {
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+        }
+        .detail-pane:not(.active-pane) .pane-content > * {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .detail-pane.active-pane .pane-content > * {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -219,7 +225,7 @@
             <div class="container mx-auto px-6 text-center">
                 <h3 class="text-3xl md:text-4xl font-bold mb-12">O Projeto em Detalhes</h3>
             </div>
-            <div id="scroll-container" class="relative h-[250vh] w-full">
+            <div id="scroll-container" class="relative h-[400vh] w-full">
                 <div class="sticky top-0 h-screen w-full overflow-hidden">
                     <div id="implantacao-content" class="detail-pane absolute inset-0 flex items-center justify-center">
                         <div class="pane-content container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -622,56 +628,41 @@
 
             function handleProjectDetailsScroll() {
                 if (!scrollContainer) return;
-
                 const containerInfo = scrollContainer.getBoundingClientRect();
                 const containerTop = window.scrollY + containerInfo.top;
-                const scrollableHeight = containerInfo.height - window.innerHeight;
-                const paneCount = detailPanes.length;
                 
-                // Lida com os estados fora do contêiner de rolagem
-                if (window.scrollY < containerTop) {
-                    detailPanes.forEach((pane, index) => {
-                        pane.style.opacity = index === 0 ? '1' : '0';
-                        const content = pane.querySelector('.pane-content');
-                        if (content) content.style.transform = index === 0 ? 'translateY(0px)' : 'translateY(50px)';
-                    });
-                    return;
-                }
-                if (window.scrollY > containerTop + scrollableHeight) {
-                    detailPanes.forEach((pane, index) => {
-                        pane.style.opacity = index === paneCount - 1 ? '1' : '0';
-                         const content = pane.querySelector('.pane-content');
-                        if (content) content.style.transform = index === paneCount - 1 ? 'translateY(0px)' : 'translateY(50px)';
-                    });
+                if (window.scrollY < containerTop || window.scrollY > containerTop + containerInfo.height - window.innerHeight) {
                     return;
                 }
 
-                // Calcula o progresso dentro do contêiner
-                const scrollProgress = (window.scrollY - containerTop) / scrollableHeight;
-                const progress = scrollProgress * (paneCount - 1);
-                const activeIndex = Math.floor(progress);
-                const paneProgress = progress - activeIndex;
+                const progress = (window.scrollY - containerTop) / window.innerHeight;
+                const activeIndex = Math.max(0, Math.min(detailPanes.length - 1, Math.floor(progress)));
+                
+                let paneProgress = progress - activeIndex;
 
                 detailPanes.forEach((pane, index) => {
-                    const content = pane.querySelector('.pane-content');
-                    let opacity = 0;
-                    let transformY = 50; // Posição inicial (oculto)
-
                     if (index === activeIndex) {
-                        // Painel atual (desaparecendo)
-                        opacity = 1 - paneProgress;
-                        transformY = -paneProgress * 50;
-                    } else if (index === activeIndex + 1) {
-                        // Próximo painel (aparecendo)
-                        opacity = paneProgress;
-                        transformY = (1 - paneProgress) * 50;
-                    }
-                    
-                    pane.style.opacity = opacity;
-                    if (content) {
-                        content.style.transform = `translateY(${transformY}px)`;
+                        pane.classList.add('active-pane');
+                        pane.style.opacity = 1;
+
+                        const content = pane.querySelector('.pane-content');
+                        if(content) {
+                            const parallaxOffset = (0.5 - paneProgress) * 50;
+                            content.style.transform = `translateY(${parallaxOffset}px)`;
+                        }
+
+                    } else {
+                        pane.classList.remove('active-pane');
+                        pane.style.opacity = 0;
                     }
                 });
+
+                 if (activeIndex > 0 && activeIndex < detailPanes.length -1) {
+                    const nextPane = detailPanes[activeIndex + 1];
+                    if (nextPane) {
+                       nextPane.style.opacity = paneProgress * 1.2;
+                    }
+                }
             }
 
 
@@ -923,6 +914,5 @@
 
 </body>
 </html>
-
 
 
