@@ -45,10 +45,15 @@
         #header.scrolled {
             background: linear-gradient(to bottom, rgb(209, 209, 209), rgba(209, 209, 209, 0.15));
         }
-        /* CORREÇÃO FINAL: Replicando o CSS do exemplo funcional */
-        body.gallery-open, body.pdf-viewer-open {
+        
+        /* === INÍCIO DA CORREÇÃO 1 (CSS) === */
+        /* Impede a rolagem do body quando modais estão abertos, aplicando ao HTML e ao BODY */
+        html.gallery-open, body.gallery-open,
+        html.pdf-viewer-open, body.pdf-viewer-open {
             overflow: hidden;
         }
+        /* === FIM DA CORREÇÃO 1 (CSS) === */
+
         .lightbox-nav {
             transition: opacity 0.3s ease;
         }
@@ -712,6 +717,8 @@
             showAllImagesBtn.addEventListener('click', () => {
                 mainContent.classList.add('hidden');
                 fullGallery.classList.remove('hidden');
+                // === INÍCIO DA CORREÇÃO 2 (JS) ===
+                document.documentElement.classList.add('gallery-open');
                 document.body.classList.add('gallery-open');
                 window.scrollTo(0, 0);
                 mobileSectionTitle.innerText = 'Imagens 3D';
@@ -726,7 +733,9 @@
             const closeGalleryAction = () => {
                 fullGallery.classList.add('hidden');
                 mainContent.classList.remove('hidden');
+                document.documentElement.classList.remove('gallery-open');
                 document.body.classList.remove('gallery-open');
+                // === FIM DA CORREÇÃO 2 (JS) ===
                 document.getElementById('imagens3d').scrollIntoView();
                 window.dispatchEvent(new Event('scroll'));
             };
