@@ -252,5 +252,31 @@ class FirebaseUserManager {
     }
 }
 
+
+    // Atualizar apenas o nome do usuário
+    async updateUserName(email, newName) {
+        try {
+            const userDocId = email.toLowerCase().replace(/[.]/g, '_');
+            const userRef = doc(db, this.usersCollection, userDocId);
+
+            const updateData = {
+                name: newName,
+                updatedAt: new Date().toISOString()
+            };
+
+            await updateDoc(userRef, updateData);
+            await this.logActivity('name_updated', email, { 
+                action: 'Nome atualizado', 
+                newName: newName 
+            });
+
+            return { success: true };
+        } catch (error) {
+            console.error('Erro ao atualizar nome:', error);
+            return { success: false, error: error.message };
+        }
+    }
+}
+
 // Exportar instância única do gerenciador
 export const firebaseUserManager = new FirebaseUserManager();

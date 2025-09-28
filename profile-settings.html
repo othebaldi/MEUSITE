@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações do Perfil - Portfólio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .settings-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .section-title i {
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #e0e0e0;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            font-size: 1rem;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .form-input::placeholder {
+            color: #888888;
+        }
+
+        .password-group {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #888888;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-password:hover {
+            color: #ffffff;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: #ffffff;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-loading {
+            position: relative;
+        }
+
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .alert-success {
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #4ade80;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .current-info {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .current-info-label {
+            font-size: 0.85rem;
+            color: #888888;
+            margin-bottom: 5px;
+        }
+
+        .current-info-value {
+            font-size: 1rem;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .back-button {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 20px;
+                width: fit-content;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .settings-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="portfolio.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar ao Portfólio
+        </a>
+
+        <div class="header">
+            <h1>Configurações do Perfil</h1>
+            <p>Gerencie suas informações pessoais de forma segura</p>
+        </div>
+
+        <!-- Seção Alterar Nome -->
+        <div class="settings-section">
+            <div class="section-title">
+                <i class="fas fa-user-edit"></i>
+                Alterar Nome de Exibição
+            </div>
+
+            <div id="nameAlert" class="alert"></div>
+
+            <div class="current-info">
+                <div class="current-info-label">Nome atual:</div>
+                <div class="current-info-value" id="currentDisplayName">Carregando...</div>
+            </div>
+
+            <form id="nameForm">
+                <div class="form-group">
+                    <label class="form-label" for="newName">Novo nome de exibição</label>
+                    <input type="text" id="newName" class="form-input" placeholder="Digite seu novo nome" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="currentPasswordName">Senha atual (para confirmação)</label>
+                    <div class="password-group">
+                        <input type="password" id="currentPasswordName" class="form-input" placeholder="Digite sua senha atual" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('currentPasswordName')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn" id="nameSubmitBtn">
+                    <i class="fas fa-save"></i>
+                    Salvar Nome
+                </button>
+            </form>
+        </div>
+
+        <!-- Seção Alterar Senha -->
+        <div class="settings-section">
+            <div class="section-title">
+                <i class="fas fa-key"></i>
+                Alterar Senha
+            </div>
+
+            <div id="passwordAlert" class="alert"></div>
+
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label class="form-label" for="currentPassword">Senha atual</label>
+                    <div class="password-group">
+                        <input type="password" id="currentPassword" class="form-input" placeholder="Digite sua senha atual" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('currentPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="newPassword">Nova senha</label>
+                    <div class="password-group">
+                        <input type="password" id="newPassword" class="form-input" placeholder="Digite a nova senha" required minlength="6">
+                        <button type="button" class="toggle-password" onclick="togglePassword('newPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="confirmPassword">Confirmar nova senha</label>
+                    <div class="password-group">
+                        <input type="password" id="confirmPassword" class="form-input" placeholder="Digite novamente a nova senha" required minlength="6">
+                        <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn" id="passwordSubmitBtn">
+                    <i class="fas fa-save"></i>
+                    Salvar Senha
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="firebase-utils.js"></script>
+    <script type="module">
+        import { firebaseUserManager } from './firebase-utils.js';
+
+        // Estado da aplicação
+        let currentUser = null;
+
+        // Inicializar aplicação
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadCurrentUser();
+            setupEventListeners();
+        });
+
+        // Carregar usuário atual
+        async function loadCurrentUser() {
+            try {
+                // Obter email do localStorage (definido no login)
+                const userEmail = localStorage.getItem('userEmail');
+                if (!userEmail) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                const result = await firebaseUserManager.getUserByEmail(userEmail);
+                if (result.success) {
+                    currentUser = result.user;
+                    document.getElementById('currentDisplayName').textContent = currentUser.name || 'Sem nome definido';
+                } else {
+                    showAlert('nameAlert', 'error', 'Erro ao carregar dados do usuário');
+                }
+            } catch (error) {
+                console.error('Erro ao carregar usuário:', error);
+                showAlert('nameAlert', 'error', 'Erro ao carregar dados do usuário');
+            }
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Formulário de alteração de nome
+            document.getElementById('nameForm').addEventListener('submit', handleNameChange);
+
+            // Formulário de alteração de senha
+            document.getElementById('passwordForm').addEventListener('submit', handlePasswordChange);
+
+            // Validação de senha em tempo real
+            document.getElementById('confirmPassword').addEventListener('input', validatePasswordMatch);
+        }
+
+        // Alterar nome
+        async function handleNameChange(e) {
+            e.preventDefault();
+
+            const newName = document.getElementById('newName').value.trim();
+            const currentPassword = document.getElementById('currentPasswordName').value;
+
+            if (!newName || !currentPassword) {
+                showAlert('nameAlert', 'error', 'Por favor, preencha todos os campos');
+                return;
+            }
+
+            if (currentPassword !== currentUser.password) {
+                showAlert('nameAlert', 'error', 'Senha atual incorreta');
+                return;
+            }
+
+            if (newName === currentUser.name) {
+                showAlert('nameAlert', 'error', 'O novo nome deve ser diferente do atual');
+                return;
+            }
+
+            setButtonLoading('nameSubmitBtn', true);
+
+            try {
+                const result = await firebaseUserManager.updateUser(currentUser.email, { name: newName });
+
+                if (result.success) {
+                    currentUser.name = newName;
+                    document.getElementById('currentDisplayName').textContent = newName;
+                    document.getElementById('nameForm').reset();
+                    showAlert('nameAlert', 'success', 'Nome alterado com sucesso!');
+                } else {
+                    showAlert('nameAlert', 'error', result.error || 'Erro ao alterar nome');
+                }
+            } catch (error) {
+                console.error('Erro ao alterar nome:', error);
+                showAlert('nameAlert', 'error', 'Erro interno do sistema');
+            } finally {
+                setButtonLoading('nameSubmitBtn', false);
+            }
+        }
+
+        // Alterar senha
+        async function handlePasswordChange(e) {
+            e.preventDefault();
+
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                showAlert('passwordAlert', 'error', 'Por favor, preencha todos os campos');
+                return;
+            }
+
+            if (currentPassword !== currentUser.password) {
+                showAlert('passwordAlert', 'error', 'Senha atual incorreta');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                showAlert('passwordAlert', 'error', 'A nova senha deve ter pelo menos 6 caracteres');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                showAlert('passwordAlert', 'error', 'As senhas não coincidem');
+                return;
+            }
+
+            if (newPassword === currentPassword) {
+                showAlert('passwordAlert', 'error', 'A nova senha deve ser diferente da atual');
+                return;
+            }
+
+            setButtonLoading('passwordSubmitBtn', true);
+
+            try {
+                const result = await firebaseUserManager.changeUserPassword(currentUser.email, newPassword);
+
+                if (result.success) {
+                    currentUser.password = newPassword;
+                    document.getElementById('passwordForm').reset();
+                    showAlert('passwordAlert', 'success', 'Senha alterada com sucesso!');
+                } else {
+                    showAlert('passwordAlert', 'error', result.error || 'Erro ao alterar senha');
+                }
+            } catch (error) {
+                console.error('Erro ao alterar senha:', error);
+                showAlert('passwordAlert', 'error', 'Erro interno do sistema');
+            } finally {
+                setButtonLoading('passwordSubmitBtn', false);
+            }
+        }
+
+        // Validar se as senhas coincidem
+        function validatePasswordMatch() {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const confirmField = document.getElementById('confirmPassword');
+
+            if (confirmPassword && newPassword !== confirmPassword) {
+                confirmField.style.borderColor = '#ef4444';
+            } else {
+                confirmField.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+            }
+        }
+
+        // Mostrar alerta
+        function showAlert(elementId, type, message) {
+            const alert = document.getElementById(elementId);
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.style.display = 'block';
+
+            // Ocultar após 5 segundos
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 5000);
+        }
+
+        // Configurar estado de loading do botão
+        function setButtonLoading(buttonId, loading) {
+            const button = document.getElementById(buttonId);
+            const icon = button.querySelector('i');
+
+            if (loading) {
+                button.disabled = true;
+                button.classList.add('btn-loading');
+                icon.style.display = 'none';
+                button.innerHTML = button.innerHTML.replace(icon.outerHTML, '') + '<div class="spinner"></div>';
+            } else {
+                button.disabled = false;
+                button.classList.remove('btn-loading');
+                button.querySelector('.spinner')?.remove();
+                icon.style.display = 'inline';
+            }
+        }
+
+        // Função global para toggle de senha
+        window.togglePassword = function(fieldId) {
+            const field = document.getElementById(fieldId);
+            const button = field.nextElementSibling;
+            const icon = button.querySelector('i');
+
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        };
+    </script>
+</body>
+</html>
