@@ -70,85 +70,126 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Se o usuário já estiver logado, redireciona para o portfólio
-            if (sessionStorage.getItem('isAuthenticated') === 'true') {
-                window.location.pathname = 'portfolio.html';
-                return;
-            }
+        document.addEventListener('DOMContentLoaded', () => {
 
-            // Inicializa usuários de exemplo se não houver nenhum
-            function initializeDefaultUsers() {
-                const users = localStorage.getItem('portfolioUsers');
-                if (!users) {
-                    const defaultUsers = {
-                        'cliente1@email.com': { password: '555222', isFirstLogin: false, name: 'Cliente Um', createdAt: new Date().toISOString() },
-                        'cliente2@email.com': { password: 'abc123', isFirstLogin: true, name: 'Cliente Dois', createdAt: new Date().toISOString() },
-                        'exemplo@email.com': { password: '987654', isFirstLogin: true, name: 'Cliente Exemplo', createdAt: new Date().toISOString() }
-                    };
-                    localStorage.setItem('portfolioUsers', JSON.stringify(defaultUsers));
+            // --- ELEMENTOS DO DOM ---
+            const loginForm = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const errorMessageDiv = document.getElementById('errorMessage');
+
+            // --- MÓDULO DE AUTENTICAÇÃO ---
+            const AuthService = {
+                /**
+                 * Inicializa os usuários padrão no localStorage se não existirem.
+                 */
+                initializeDefaultUsers() {
+                    if (!localStorage.getItem('portfolioUsers')) {
+                        const defaultUsers = {
+                            'cliente1@email.com': { password: '555222', isFirstLogin: false, name: 'Cliente Um', createdAt: new Date().toISOString() },
+                            'cliente2@email.com': { password: 'abc123', isFirstLogin: true, name: 'Cliente Dois', createdAt: new Date().toISOString() },
+                            'exemplo@email.com': { password: '987654', isFirstLogin: true, name: 'Cliente Exemplo', createdAt: new Date().toISOString() }
+                        };
+                        localStorage.setItem('portfolioUsers', JSON.stringify(defaultUsers));
+                    }
+                },
+
+                /**
+                 * Autentica um usuário com base no email e senha.
+                 * @param {string} email - O email do usuário.
+                 * @param {string} password - A senha do usuário.
+                 * @returns {object} - Objeto com o resultado da autenticação.
+                 */
+                authenticate(email, password) {
+                    const users = JSON.parse(localStorage.getItem('portfolioUsers')) || {};
+                    const user = users[email.toLowerCase()];
+
+                    if (!user) {
+                        return { success: false, message: 'Usuário não encontrado.' };
+                    }
+                    if (user.password !== password) {
+                        return { success: false, message: 'Senha incorreta.' };
+                    }
+                    return { success: true, isFirstLogin: user.isFirstLogin };
+                },
+
+                /**
+                 * Salva o estado de autenticação na sessão.
+                 * @param {string} email - O email do usuário autenticado.
+                 */
+                setSession(email) {
+                    sessionStorage.setItem('isAuthenticated', 'true');
+                    sessionStorage.setItem('loggedInUser', email.toLowerCase());
+                },
+
+                /**
+                 * Redireciona o usuário para a página apropriada após o login.
+                 * @param {boolean} isFirstLogin - Indica se é o primeiro login do usuário.
+                 */
+                redirect(isFirstLogin) {
+                    window.location.href = isFirstLogin ? 'change-password.html' : 'portfolio.html';
                 }
-            }
-            initializeDefaultUsers();
-
-            // Função para autenticar o usuário
-            function authenticateUser(email, password) {
-                const users = JSON.parse(localStorage.getItem('portfolioUsers')) || {};
-                const user = users[email.toLowerCase()];
-
-                if (!user) {
-                    return { success: false, message: 'Usuário não encontrado.' };
-                }
-
-                if (user.password !== password) {
-                    return { success: false, message: 'Senha incorreta.' };
-                }
-
-                return { success: true, isFirstLogin: user.isFirstLogin };
-            }
+            };
             
-            // Manipulador do formulário
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
+            // --- MÓDULO DE UI ---
+            const UIController = {
+                /**
+                 * Exibe uma mensagem de erro no formulário.
+                 * @param {string} message - A mensagem a ser exibida.
+                 */
+                showError(message) {
+                    errorMessageDiv.textContent = message;
+                    errorMessageDiv.classList.remove('hidden');
+                    setTimeout(() => errorMessageDiv.classList.add('hidden'), 5000);
+                },
 
-                const email = document.getElementById('email').value.trim();
-                const password = document.getElementById('password').value;
+                /**
+                 * Redireciona para a página do portfólio se o usuário já estiver logado.
+                 */
+                checkExistingSession() {
+                    if (sessionStorage.getItem('isAuthenticated') === 'true') {
+                        window.location.href = 'portfolio.html';
+                    }
+                }
+            };
+            
+            // --- INICIALIZAÇÃO E EVENTOS ---
+            
+            // Verifica se já existe uma sessão ativa.
+            UIController.checkExistingSession();
+
+            // Garante que os usuários padrão existam.
+            AuthService.initializeDefaultUsers();
+
+            // Adiciona o listener de evento ao formulário.
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const email = emailInput.value.trim();
+                const password = passwordInput.value;
 
                 if (!email || !password) {
-                    showError('Por favor, preencha todos os campos.');
+                    UIController.showError('Por favor, preencha todos os campos.');
                     return;
                 }
 
-                // Lógica de login para admin
+                // Lógica especial para o login do administrador.
                 if (email.toLowerCase() === 'compras.thebaldi@gmail.com') {
-                     window.location.pathname = 'admin.html';
+                     window.location.href = 'admin.html';
                      return;
                 }
-
-                const authResult = authenticateUser(email, password);
-
+                
+                // Tenta autenticar o usuário.
+                const authResult = AuthService.authenticate(email, password);
+                
                 if (authResult.success) {
-                    sessionStorage.setItem('isAuthenticated', 'true');
-                    sessionStorage.setItem('loggedInUser', email.toLowerCase());
-
-                    if (authResult.isFirstLogin) {
-                        window.location.pathname = 'change-password.html';
-                    } else {
-                        window.location.pathname = 'portfolio.html';
-                    }
+                    AuthService.setSession(email);
+                    AuthService.redirect(authResult.isFirstLogin);
                 } else {
-                    showError(authResult.message);
+                    UIController.showError(authResult.message);
                 }
             });
-
-            function showError(message) {
-                const errorDiv = document.getElementById('errorMessage');
-                errorDiv.textContent = message;
-                errorDiv.classList.remove('hidden');
-                setTimeout(() => errorDiv.classList.add('hidden'), 5000);
-            }
         });
     </script>
 </body>
 </html>
-
