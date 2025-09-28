@@ -48,7 +48,7 @@
             background: linear-gradient(to bottom, rgb(209, 209, 209), rgba(209, 209, 209, 0.15));
         }
         /* Impede a rolagem do body quando modais estão abertos */
-        body.gallery-open, body.pdf-viewer-open {
+        body.gallery-open {
             overflow: hidden;
         }
         /* Efeitos para os botões de navegação do lightbox */
@@ -138,6 +138,20 @@
             .pdf-viewer iframe {
                 width: 95vw;
                 height: 70vh;
+            }
+        }
+    
+        /* Correção adicional para iOS - baseada no exemplo funcional */
+        #full-gallery {
+            -webkit-overflow-scrolling: touch;
+            will-change: scroll-position;
+        }
+
+        /* Garante scroll em dispositivos touch */
+        @media (pointer: coarse) {
+            #full-gallery {
+                -webkit-overflow-scrolling: touch !important;
+                overflow-y: scroll !important;
             }
         }
     </style>
@@ -345,54 +359,49 @@
     <!-- Galeria em Tela Cheia -->
     <div id="full-gallery" class="hidden fixed inset-0 z-40 bg-[rgb(255,248,231)] overflow-y-auto pt-24">
         <div class="container mx-auto px-6 py-8">
-            <div class="flex justify-between items-center mb-8">
-                <h3 class="text-3xl md:text-4xl font-bold">Todas as Imagens 3D</h3>
-                <button id="back-to-main-btn" class="bg-[rgb(255,165,44)] hover:bg-[rgb(230,149,40)] text-white font-bold py-2 px-6 rounded-full text-lg transition duration-300">Voltar</button>
-            </div>
+            <div class="flex justify-between items-center mb-8"><h3 class="text-3xl md:text-4xl font-bold">Todas as Imagens 3D</h3><button id="back-to-main-btn" class="bg-[rgb(255,165,44)] hover:bg-[rgb(230,149,40)] text-white font-bold py-2 px-6 rounded-full text-lg transition duration-300">Voltar</button></div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-01.jpg" alt="Render 3D 1" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-02.jpg" alt="Render 3D 2" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-03.jpg" alt="Render 3D 3" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-04.jpg" alt="Render 3D 4" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-05.jpg" alt="Render 3D 5" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-06.jpg" alt="Render 3D 6" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-07.jpg" alt="Render 3D 7" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-08.jpg" alt="Render 3D 8" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-09.jpg" alt="Render 3D 9" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-10.jpg" alt="Render 3D 10" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-11.jpg" alt="Render 3D 11" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-12.jpg" alt="Render 3D 12" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-13.jpg" alt="Render 3D 13" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-14.jpg" alt="Render 3D 14" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-15.jpg" alt="Render 3D 15" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-16.jpg" alt="Render 3D 16" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-17.jpg" alt="Render 3D 17" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-18.jpg" alt="Render 3D 18" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-19.jpg" alt="Render 3D 19" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-20.jpg" alt="Render 3D 20" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-21.jpg" alt="Render 3D 21" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-22.jpg" alt="Render 3D 22" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-23.jpg" alt="Render 3D 23" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-24.jpg" alt="Render 3D 24" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-25.jpg" alt="Render 3D 25" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-26.jpg" alt="Render 3D 26" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-27.jpg" alt="Render 3D 27" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-28.jpg" alt="Render 3D 28" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-29.jpg" alt="Render 3D 29" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-30.jpg" alt="Render 3D 30" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-31.jpg" alt="Render 3D 31" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-32.jpg" alt="Render 3D 32" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-33.jpg" alt="Render 3D 33" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-34.jpg" alt="Render 3D 34" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-35.jpg" alt="Render 3D 35" class="w-full h-full object-cover"></div>
-                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-36.jpg" alt="Render 3D 36" class="w-full h-full object-cover"></div>
+                <!-- Imagens da galeria são populadas dinamicamente aqui se necessário, ou podem ser pré-renderizadas -->
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-01.jpg" alt="Render 3D 1" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-02.jpg" alt="Render 3D 2" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-03.jpg" alt="Render 3D 3" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-04.jpg" alt="Render 3D 4" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-05.jpg" alt="Render 3D 5" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-06.jpg" alt="Render 3D 6" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-07.jpg" alt="Render 3D 7" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-08.jpg" alt="Render 3D 8" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-09.jpg" alt="Render 3D 9" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-10.jpg" alt="Render 3D 10" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-11.jpg" alt="Render 3D 11" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-12.jpg" alt="Render 3D 12" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-13.jpg" alt="Render 3D 13" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-14.jpg" alt="Render 3D 14" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-15.jpg" alt="Render 3D 15" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-16.jpg" alt="Render 3D 16" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-17.jpg" alt="Render 3D 17" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-18.jpg" alt="Render 3D 18" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-19.jpg" alt="Render 3D 19" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-20.jpg" alt="Render 3D 20" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-21.jpg" alt="Render 3D 21" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-22.jpg" alt="Render 3D 22" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-23.jpg" alt="Render 3D 23" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-24.jpg" alt="Render 3D 24" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-25.jpg" alt="Render 3D 25" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-26.jpg" alt="Render 3D 26" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-27.jpg" alt="Render 3D 27" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-28.jpg" alt="Render 3D 28" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-29.jpg" alt="Render 3D 29" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-30.jpg" alt="Render 3D 30" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-31.jpg" alt="Render 3D 31" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-32.jpg" alt="Render 3D 32" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-33.jpg" alt="Render 3D 33" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-34.jpg" alt="Render 3D 34" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-35.jpg" alt="Render 3D 35" class="w-full h-full object-cover" loading="lazy"></div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-36.jpg" alt="Render 3D 36" class="w-full h-full object-cover" loading="lazy"></div>
             </div>
+            <div class="text-center mt-12 mb-8"><button id="back-to-main-btn-bottom" class="bg-[rgb(255,165,44)] hover:bg-[rgb(230,149,40)] text-white font-bold py-2 px-6 rounded-full text-lg transition duration-300">Voltar</button></div>
         </div>
-        <button id="scroll-to-top-btn" class="fixed bottom-8 right-8 bg-[rgb(255,165,44)] hover:bg-[rgb(230,149,40)] text-white p-3 rounded-full shadow-lg transition-opacity duration-300 opacity-0 pointer-events-none z-50">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-            </svg>
-        </button>
+        <button id="scroll-to-top-btn" class="fixed bottom-8 right-8 bg-[rgb(255,165,44)] hover:bg-[rgb(230,149,40)] text-white p-3 rounded-full shadow-lg transition-opacity duration-300 opacity-0 pointer-events-none z-50"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" /></svg></button>
     </div>
 
     <!-- Lightbox para Imagens -->
