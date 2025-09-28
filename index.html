@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ver ok</title>
+    <title>Portfólio de Arquitetura</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,12 +82,6 @@
             max-width: 1200px;
             border: 2px solid rgb(255, 165, 44);
             border-radius: 8px;
-        }
-        @media (max-width: 768px) {
-            .pdf-viewer iframe {
-                width: 95vw;
-                height: 70vh;
-            }
         }
         .pdf-close-btn {
             position: fixed;
@@ -804,8 +798,7 @@
             });
 
             function openPdfViewer(url) {
-                const finalUrl = isMobileDevice() ? `${url}#view=FitH` : url;
-                pdfIframe.src = finalUrl;
+                pdfIframe.src = url;
                 pdfViewer.classList.add('visible');
                 document.body.classList.add('pdf-viewer-open');
                 window.addEventListener('keydown', handleKeydown);
@@ -857,5 +850,4 @@
 
 </body>
 </html>
-
 
