@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio de Arquitetura</title>
+    <title>ver ok</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -804,7 +804,7 @@
             });
 
             function openPdfViewer(url) {
-                const finalUrl = isMobileDevice() ? `${url}#view=Fit` : url;
+                const finalUrl = isMobileDevice() ? `${url}#view=FitH` : url;
                 pdfIframe.src = finalUrl;
                 pdfViewer.classList.add('visible');
                 document.body.classList.add('pdf-viewer-open');
@@ -838,21 +838,18 @@
             });
 
             pdfIframeWrapper.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent click from bubbling to pdfViewer
+                // Impede que o clique se propague para o listener do pdfViewer
+                e.stopPropagation();
 
-                if (isMobileDevice()) {
-                    // On mobile, any click on the wrapper (including the iframe) closes the viewer.
+                // Verifica se o clique foi na área ao redor do PDF (o wrapper)
+                if (e.target === pdfIframeWrapper) {
                     closePdfViewer();
                 } else {
-                    // On desktop, handle zoom or close if clicking on padding.
-                    if (e.target === pdfIframeWrapper) {
-                        closePdfViewer();
-                    } else {
-                        isPdfZoomed = !isPdfZoomed;
-                        zoomLevel = isPdfZoomed ? 1.7 : 1.0;
-                        pdfIframe.style.transform = `scale(${zoomLevel})`;
-                        pdfIframeWrapper.style.cursor = isPdfZoomed ? 'zoom-out' : 'zoom-in';
-                    }
+                    // Caso contrário, o clique foi no PDF, então aplica o zoom
+                    isPdfZoomed = !isPdfZoomed;
+                    zoomLevel = isPdfZoomed ? 1.7 : 1.0;
+                    pdfIframe.style.transform = `scale(${zoomLevel})`;
+                    pdfIframeWrapper.style.cursor = isPdfZoomed ? 'zoom-out' : 'zoom-in';
                 }
             });
         });
@@ -860,4 +857,5 @@
 
 </body>
 </html>
+
 
