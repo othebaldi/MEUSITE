@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio Arquitetura - Carregando...</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-900">
+    <!-- Estrutura do Background -->
+    <div class="fixed inset-0 bg-cover bg-center" style="background-image: url('assets/fundo-login.jpg');"></div>
+    <div class="fixed inset-0 bg-black/60"></div>
+    
+    <!-- Conteúdo Central -->
+    <div class="relative min-h-screen flex flex-col items-center justify-center text-white text-center p-4">
+        <img src="assets/logo-engecon.png" alt="Logo Engecon" class="h-16 mb-6 animate-pulse">
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">PROJETO ESESP</h1>
+        <p class="mt-2 text-lg max-w-2xl">Projeto de Urbanismo, Paisagismo e Sinalização do Estacionamento</p>
+    </div>
+
+    <script>
+        /**
+         * Lógica de inicialização e redirecionamento da aplicação.
+         * Executa após um breve período para exibir a tela de carregamento.
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                // Obtém o estado de autenticação da sessão do navegador.
+                const isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true';
+                const loggedUserEmail = sessionStorage.getItem('loggedInUser');
+
+                if (isAuthenticated && loggedUserEmail) {
+                    // Se autenticado, verifica se é o primeiro login do usuário.
+                    const users = JSON.parse(localStorage.getItem('portfolioUsers')) || {};
+                    const currentUser = users[loggedUserEmail];
+                    
+                    if (currentUser && currentUser.isFirstLogin) {
+                        // Redireciona para a troca de senha se for o primeiro acesso.
+                        window.location.href = 'change-password.html';
+                    } else {
+                        // Redireciona para o portfólio principal.
+                        window.location.href = 'portfolio.html';
+                    }
+                } else {
+                    // Se não estiver autenticado, redireciona para a página de login.
+                    window.location.href = 'login.html';
+                }
+            }, 1500); // Aguarda 1.5 segundos antes de redirecionar.
+        });
+    </script>
+</body>
+</html>
