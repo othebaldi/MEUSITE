@@ -192,35 +192,6 @@
             </div>
         </section>
 
-        <section id="imagens3d" class="py-20">
-            <div class="container mx-auto px-6">
-                <h3 class="text-3xl md:text-4xl font-bold text-center mb-12">Visualizações 3D</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-01.jpg" alt="Render 3D 1" class="w-full h-full object-cover"></div>
-                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-02.jpg" alt="Render 3D 2" class="w-full h-full object-cover"></div>
-                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-03.jpg" alt="Render 3D 3" class="w-full h-full object-cover"></div>
-                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-04.jpg" alt="Render 3D 4" class="w-full h-full object-cover"></div>
-                </div>
-                <div class="text-center mt-12 flex flex-col items-center space-y-4">
-                    <button id="show-all-images-btn" class="bg-[rgb(255,165,44)] hover:bg-[rgb(230,149,40)] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 w-full max-w-sm">
-                        Ver todas as imagens 3D
-                    </button>
-                    <button id="explore-3d-btn" data-link="https://cloud.chaos.com/collaboration/n/VSycdGbYxjyEm9zn8FJUYK?enw=" class="bg-[rgb(255,165,44)] hover:bg-[rgb(230,149,40)] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 w-full max-w-sm">
-                        Explorar Projeto 3D Interativo
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <section id="historia" class="py-20 bg-white/50">
-            <div class="container mx-auto px-6 max-w-4xl text-center">
-                <h3 class="text-3xl md:text-4xl font-bold mb-8">A ESESP</h3>
-                <p class="text-lg text-gray-600 leading-relaxed">
-                    A Escola de Serviço Público do Espírito Santo (ESESP) é uma autarquia estadual criada pela Lei nº 3.043 de 31 de dezembro de 1975, transformada em autarquia pela Lei 4.912 de 28 de junho de 1994 e reestruturada pela Lei Complementar 333/05. Com personalidade jurídica de direito público interno e autonomia administrativa e financeira, a instituição está vinculada à Secretaria de Estado de Gestão e Recursos Humanos (SEGER). Há quase 50 anos capacitando para inovar e transformar o serviço público, a ESESP tem como missão promover ações de capacitação e formação continuada nas áreas de gestão, buscando soluções educacionais para o desenvolvimento de competências profissionais e pessoais necessárias às instituições estaduais, municipais e sociedade civil organizada. A instituição oferece mais de 100 soluções educacionais agrupadas em 14 eixos do conhecimento, incluindo Gestão Pública, Planejamento e Projetos, Gestão Estratégica de Processos, Orçamento e Finanças, Escola de Líderes, Inovação e Sustentabilidade, entre outros.
-                </p>
-            </div>
-        </section>
-
         <section id="projeto-detalhes-wrapper" class="relative bg-white/50 py-20">
             <div class="container mx-auto px-6 text-center">
                 <h3 class="text-3xl md:text-4xl font-bold mb-12">O Projeto em Detalhes</h3>
@@ -525,6 +496,8 @@
             const lightboxNext = document.getElementById('lightbox-next');
             const scrollToTopBtn = document.getElementById('scroll-to-top-btn');
             const heroBackground = document.getElementById('hero-background');
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanes = document.querySelectorAll('.tab-pane');
             const explore3dBtn = document.getElementById('explore-3d-btn');
             const toast = document.getElementById('toast-notification');
             const heroTitle = document.getElementById('hero-title');
@@ -703,14 +676,24 @@
                 sections.forEach(section => {
                     if (pageYOffset >= section.offsetTop - 95) current = section.getAttribute('id');
                 });
+                const sectionTitles = {'inicio': 'Início', 'imagens3d': 'Imagens 3D', 'historia': 'A ESESP', 'projeto-detalhes': 'O Projeto', 'plantas': 'Plantas Técnicas', 'contato': 'Contato'};
+                if (mobileSectionTitle && sectionTitles[current]) mobileSectionTitle.innerText = sectionTitles[current];
+                navLinks.forEach(link => {
+                    link.classList.toggle('text-black', link.getAttribute('href').includes(current));
+                    link.classList.toggle('font-bold', link.getAttribute('href').includes(current));
+                    link.classList.toggle('text-gray-700', !link.getAttribute('href').includes(current));
+                });
+            });
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
                 const sectionTitles = {'inicio': 'Início', 'imagens3d': 'Imagens 3D', 'historia': 'A ESESP', 'projeto-detalhes-wrapper': 'O Projeto', 'plantas': 'Plantas Técnicas', 'contato': 'Contato'};
                 if (mobileSectionTitle && sectionTitles[current]) mobileSectionTitle.innerText = sectionTitles[current];
                 navLinks.forEach(link => {
-                    const isProjectSection = current === 'projeto-detalhes-wrapper' && link.getAttribute('href').includes('projeto-detalhes');
-                    const isActive = link.getAttribute('href').includes(current) || isProjectSection;
-                    link.classList.toggle('text-black', isActive);
-                    link.classList.toggle('font-bold', isActive);
-                    link.classList.toggle('text-gray-700', !isActive);
+                    link.classList.toggle('text-black', link.getAttribute('href').includes(current) || (current === 'projeto-detalhes-wrapper' && link.getAttribute('href').includes('projeto-detalhes')));
+                    link.classList.toggle('font-bold', link.getAttribute('href').includes(current) || (current === 'projeto-detalhes-wrapper' && link.getAttribute('href').includes('projeto-detalhes')));
+                    link.classList.toggle('text-gray-700', !link.getAttribute('href').includes(current) && !(current === 'projeto-detalhes-wrapper' && link.getAttribute('href').includes('projeto-detalhes')));
                 });
             });
             
@@ -906,4 +889,5 @@
 
 </body>
 </html>
+
 
