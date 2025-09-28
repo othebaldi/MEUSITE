@@ -113,20 +113,6 @@
         .prancha-item {
             cursor: pointer;
         }
-        .detail-pane {
-            transition: opacity 0.8s ease-in-out;
-        }
-        .detail-pane .pane-content > * {
-            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-        }
-        .detail-pane:not(.active-pane) .pane-content > * {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        .detail-pane.active-pane .pane-content > * {
-            opacity: 1;
-            transform: translateY(0);
-        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -192,17 +178,51 @@
             </div>
         </section>
 
-        <section id="projeto-detalhes-wrapper" class="relative bg-white/50 py-20">
-            <div class="container mx-auto px-6 text-center">
-                <h3 class="text-3xl md:text-4xl font-bold mb-12">O Projeto em Detalhes</h3>
+        <section id="imagens3d" class="py-20">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl md:text-4xl font-bold text-center mb-12">Visualizações 3D</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-01.jpg" alt="Render 3D 1" class="w-full h-full object-cover"></div>
+                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-02.jpg" alt="Render 3D 2" class="w-full h-full object-cover"></div>
+                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-03.jpg" alt="Render 3D 3" class="w-full h-full object-cover"></div>
+                    <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-04.jpg" alt="Render 3D 4" class="w-full h-full object-cover"></div>
+                </div>
+                <div class="text-center mt-12 flex flex-col items-center space-y-4">
+                    <button id="show-all-images-btn" class="bg-[rgb(255,165,44)] hover:bg-[rgb(230,149,40)] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 w-full max-w-sm">
+                        Ver todas as imagens 3D
+                    </button>
+                    <button id="explore-3d-btn" data-link="https://cloud.chaos.com/collaboration/n/VSycdGbYxjyEm9zn8FJUYK?enw=" class="bg-[rgb(255,165,44)] hover:bg-[rgb(230,149,40)] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 w-full max-w-sm">
+                        Explorar Projeto 3D Interativo
+                    </button>
+                </div>
             </div>
-            <div id="scroll-container" class="relative h-[400vh] w-full">
-                <div class="sticky top-0 h-screen w-full overflow-hidden">
-                    <div id="implantacao-content" class="detail-pane absolute inset-0 flex items-center justify-center">
-                        <div class="pane-content container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        </section>
+
+        <section id="historia" class="py-20 bg-white/50">
+            <div class="container mx-auto px-6 max-w-4xl text-center">
+                <h3 class="text-3xl md:text-4xl font-bold mb-8">A ESESP</h3>
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    A Escola de Serviço Público do Espírito Santo (ESESP) é uma autarquia estadual criada pela Lei nº 3.043 de 31 de dezembro de 1975, transformada em autarquia pela Lei 4.912 de 28 de junho de 1994 e reestruturada pela Lei Complementar 333/05. Com personalidade jurídica de direito público interno e autonomia administrativa e financeira, a instituição está vinculada à Secretaria de Estado de Gestão e Recursos Humanos (SEGER). Há quase 50 anos capacitando para inovar e transformar o serviço público, a ESESP tem como missão promover ações de capacitação e formação continuada nas áreas de gestão, buscando soluções educacionais para o desenvolvimento de competências profissionais e pessoais necessárias às instituições estaduais, municipais e sociedade civil organizada. A instituição oferece mais de 100 soluções educacionais agrupadas em 14 eixos do conhecimento, incluindo Gestão Pública, Planejamento e Projetos, Gestão Estratégica de Processos, Orçamento e Finanças, Escola de Líderes, Inovação e Sustentabilidade, entre outros.
+                </p>
+            </div>
+        </section>
+
+        <section id="projeto-detalhes" class="py-20">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl md:text-4xl font-bold text-center mb-12">O Projeto em Detalhes</h3>
+                
+                <div class="flex flex-wrap justify-center border-b-2 border-gray-300 mb-8">
+                    <button data-tab="implantacao" class="tab-button active py-2 px-6 text-lg font-medium text-gray-500 border-b-2 border-transparent">Implantação</button>
+                    <button data-tab="acessibilidade" class="tab-button py-2 px-6 text-lg font-medium text-gray-500 border-b-2 border-transparent">Acessibilidade</button>
+                    <button data-tab="paisagismo" class="tab-button py-2 px-6 text-lg font-medium text-gray-500 border-b-2 border-transparent">Paisagismo</button>
+                    <button data-tab="sinalizacao" class="tab-button py-2 px-6 text-lg font-medium text-gray-500 border-b-2 border-transparent">Sinalização</button>
+                </div>
+
+                <div id="tab-content">
+                    <div id="implantacao-content" class="tab-pane active">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                             <div><img src="assets/implantacao.png" alt="Planta de Implantação" class="rounded-lg shadow-lg w-full"></div>
-                            <div class="text-gray-700 text-left">
-                                <h4 class="text-2xl font-bold mb-4 text-[rgb(255,165,44)]">Implantação</h4>
+                            <div class="text-gray-700">
                                 <p class="text-lg mb-6">A intervenção requalifica a área externa da ESESP através de um desenho inteligente, que prioriza a organização dos fluxos e a segurança. A setorização otimizada define claramente as <span class="font-bold">47 vagas para carros, 15 para motos e a área de bicicletas</span>, garantindo uma circulação fluida e intuitiva para todos os usuários.</p>
                                 <ul class="space-y-4">
                                     <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Circulação Estratégica:</span> Vias de mão única e raios de giro calculados para veículos leves, evitando conflitos e maximizando a segurança viária.</span></li>
@@ -211,11 +231,10 @@
                             </div>
                         </div>
                     </div>
-                    <div id="acessibilidade-content" class="detail-pane absolute inset-0 flex items-center justify-center opacity-0">
-                        <div class="pane-content container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                            <div class="md:order-2"><img src="assets/acessibilidade.png" alt="Detalhe de Acessibilidade" class="rounded-lg shadow-lg w-full"></div>
-                            <div class="text-gray-700 text-left md:order-1">
-                                <h4 class="text-2xl font-bold mb-4 text-[rgb(255,165,44)]">Acessibilidade</h4>
+                    <div id="acessibilidade-content" class="tab-pane hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                            <div><img src="assets/acessibilidade.png" alt="Detalhe de Acessibilidade" class="rounded-lg shadow-lg w-full"></div>
+                           <div class="text-gray-700">
                                 <p class="text-lg mb-6">Comprometido com a inclusão, o projeto segue rigorosamente as diretrizes da <span class="font-bold">ABNT NBR 9050</span>, criando um ambiente acolhedor e funcional para pessoas com deficiência ou mobilidade reduzida.</p>
                                 <ul class="space-y-4">
                                     <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Rotas Acessíveis:</span> Vagas para PcD estrategicamente posicionadas, conectadas ao acesso principal por rotas livres de barreiras, com piso tátil direcional e de alerta.</span></li>
@@ -224,11 +243,10 @@
                             </div>
                         </div>
                     </div>
-                    <div id="paisagismo-content" class="detail-pane absolute inset-0 flex items-center justify-center opacity-0">
-                        <div class="pane-content container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div id="paisagismo-content" class="tab-pane hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                             <div><img src="assets/paisagismo.png" alt="Detalhe do Paisagismo" class="rounded-lg shadow-lg w-full"></div>
-                            <div class="text-gray-700 text-left">
-                                <h4 class="text-2xl font-bold mb-4 text-[rgb(255,165,44)]">Paisagismo</h4>
+                            <div class="text-gray-700">
                                 <p class="text-lg mb-6">O paisagismo transcende a estética, criando um <span class="font-bold">ecossistema urbano</span> que melhora o microclima e o bem-estar. A seleção de espécies nativas de baixo consumo hídrico garante sustentabilidade e baixa manutenção.</p>
                                 <ul class="space-y-4">
                                     <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Conforto Térmico:</span> Canteiros e árvores posicionados estrategicamente para fornecer sombra, reduzir ilhas de calor e aumentar a área permeável do solo em 878 m².</span></li>
@@ -237,11 +255,10 @@
                             </div>
                         </div>
                     </div>
-                    <div id="sinalizacao-content" class="detail-pane absolute inset-0 flex items-center justify-center opacity-0">
-                        <div class="pane-content container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                            <div class="md:order-2"><img src="assets/sinalizacao.png" alt="Detalhe da Sinalização" class="rounded-lg shadow-lg w-full"></div>
-                            <div class="text-gray-700 text-left md:order-1">
-                                <h4 class="text-2xl font-bold mb-4 text-[rgb(255,165,44)]">Sinalização</h4>
+                     <div id="sinalizacao-content" class="tab-pane hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                            <div><img src="assets/sinalizacao.png" alt="Detalhe da Sinalização" class="rounded-lg shadow-lg w-full"></div>
+                           <div class="text-gray-700">
                                 <p class="text-lg mb-6">Um sistema de <span class="font-bold">comunicação visual</span> coeso e eficiente foi desenvolvido para orientar e proteger. Toda a sinalização segue o Manual Brasileiro de Sinalização de Trânsito, garantindo clareza e conformidade normativa.</p>
                                 <ul class="space-y-4">
                                     <li class="flex items-start"><svg class="w-6 h-6 text-[rgb(255,165,44)] mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span><span class="font-bold">Sinalização Horizontal:</span> Pintura de faixas, setas, zebrados e símbolos no pavimento organiza o fluxo, delimita vagas e indica áreas de atenção, como travessias e rampas.</span></li>
@@ -510,8 +527,6 @@
             const pdfCloseBtn = document.getElementById('pdf-close-btn');
             const pranchaItems = document.querySelectorAll('.prancha-item');
             const pdfIframeWrapper = document.getElementById('pdf-iframe-wrapper');
-            const scrollContainer = document.getElementById('scroll-container');
-            const detailPanes = document.querySelectorAll('.detail-pane');
             
             function adjustDownloadLinksForIphone() {
                 const isIPhone = /iPhone/i.test(navigator.userAgent);
@@ -595,50 +610,8 @@
                 }
             });
 
-            function handleProjectDetailsScroll() {
-                if (!scrollContainer) return;
-                const containerInfo = scrollContainer.getBoundingClientRect();
-                const containerTop = window.scrollY + containerInfo.top;
-                
-                if (window.scrollY < containerTop || window.scrollY > containerTop + containerInfo.height - window.innerHeight) {
-                    return;
-                }
-
-                const progress = (window.scrollY - containerTop) / window.innerHeight;
-                const activeIndex = Math.max(0, Math.min(detailPanes.length - 1, Math.floor(progress)));
-                
-                let paneProgress = progress - activeIndex;
-
-                detailPanes.forEach((pane, index) => {
-                    if (index === activeIndex) {
-                        pane.classList.add('active-pane');
-                        pane.style.opacity = 1;
-
-                        const content = pane.querySelector('.pane-content');
-                        if(content) {
-                            const parallaxOffset = (0.5 - paneProgress) * 50;
-                            content.style.transform = `translateY(${parallaxOffset}px)`;
-                        }
-
-                    } else {
-                        pane.classList.remove('active-pane');
-                        pane.style.opacity = 0;
-                    }
-                });
-
-                 if (activeIndex > 0 && activeIndex < detailPanes.length -1) {
-                    const nextPane = detailPanes[activeIndex + 1];
-                    if (nextPane) {
-                       nextPane.style.opacity = paneProgress * 1.2;
-                    }
-                }
-            }
-
-
             window.addEventListener('scroll', function() {
                 if (document.body.classList.contains('gallery-open')) return;
-                
-                handleProjectDetailsScroll();
                 
                 const scrollPosition = window.scrollY;
                 const heroSectionHeight = document.getElementById('inicio').offsetHeight;
@@ -688,15 +661,15 @@
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     tabButtons.forEach(btn => btn.classList.remove('active'));
-                const sectionTitles = {'inicio': 'Início', 'imagens3d': 'Imagens 3D', 'historia': 'A ESESP', 'projeto-detalhes-wrapper': 'O Projeto', 'plantas': 'Plantas Técnicas', 'contato': 'Contato'};
-                if (mobileSectionTitle && sectionTitles[current]) mobileSectionTitle.innerText = sectionTitles[current];
-                navLinks.forEach(link => {
-                    link.classList.toggle('text-black', link.getAttribute('href').includes(current) || (current === 'projeto-detalhes-wrapper' && link.getAttribute('href').includes('projeto-detalhes')));
-                    link.classList.toggle('font-bold', link.getAttribute('href').includes(current) || (current === 'projeto-detalhes-wrapper' && link.getAttribute('href').includes('projeto-detalhes')));
-                    link.classList.toggle('text-gray-700', !link.getAttribute('href').includes(current) && !(current === 'projeto-detalhes-wrapper' && link.getAttribute('href').includes('projeto-detalhes')));
+                    button.classList.add('active');
+
+                    const tab = button.dataset.tab;
+                    tabPanes.forEach(pane => {
+                        pane.classList.toggle('hidden', pane.id !== `${tab}-content`);
+                    });
                 });
             });
-            
+
             showAllImagesBtn.addEventListener('click', () => {
                 mainContent.classList.add('hidden');
                 fullGallery.classList.remove('hidden');
@@ -889,5 +862,4 @@
 
 </body>
 </html>
-
 
