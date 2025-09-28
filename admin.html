@@ -454,37 +454,39 @@
                 errorDiv.style.display = 'none';
 
                 try {
-                    const adminDoc = await db.collection('admin_settings').doc('main').get();
+    // Busca o documento do admin na coleção 'portfolio_users'
+    const adminDoc = await db.collection('portfolio_users').doc(email).get();
 
-                    if (!adminDoc.exists) {
-                        throw new Error('Configuração de administrador não encontrada');
-                    }
+    if (!adminDoc.exists) {
+        throw new Error('Usuário administrador não encontrado.');
+    }
 
-                    const adminData = adminDoc.data();
+    const adminData = adminDoc.data();
 
-                    if (email === adminData.email && password === adminData.password) {
-                        this.currentAdmin = { email: adminData.email, name: adminData.name || 'Administrador' };
-                        localStorage.setItem('santa_sensacao_admin', JSON.stringify(this.currentAdmin));
+    // Compara a senha digitada com a senha no banco de dados
+    if (password === adminData.password) {
+        this.currentAdmin = { email: adminData.email, name: adminData.name || 'Administrador' };
+        localStorage.setItem('santa_sensacao_admin', JSON.stringify(this.currentAdmin));
 
-                        // Log successful login
-                        await this.logActivity('admin_login', email, { success: true });
+        // Log de login bem-sucedido
+        await this.logActivity('admin_login', email, { success: true });
 
-                        this.showAdminPanel();
-                        this.loadDashboard();
-                        this.showToast('Login realizado com sucesso!', 'success');
-                    } else {
-                        throw new Error('Email ou senha incorretos');
-                    }
-                } catch (error) {
-                    console.error('Login error:', error);
-                    errorDiv.textContent = error.message;
-                    errorDiv.style.display = 'block';
+        this.showAdminPanel();
+        this.loadDashboard();
+        this.showToast('Login realizado com sucesso!', 'success');
+    } else {
+        throw new Error('Email ou senha incorretos');
+    }
+} catch (error) {
+    console.error('Login error:', error);
+    errorDiv.textContent = error.message;
+    errorDiv.style.display = 'block';
 
-                    // Log failed login attempt
-                    await this.logActivity('admin_login_failed', email, { error: error.message });
-                } finally {
-                    this.toggleButtonLoading(submitBtn, false);
-                }
+    // Log de tentativa de login falha
+    await this.logActivity('admin_login_failed', email, { error: error.message });
+} finally {
+    this.toggleButtonLoading(submitBtn, false);
+}
             }
 
             logout() {
