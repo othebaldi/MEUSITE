@@ -475,9 +475,6 @@
                 <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-35.jpg" alt="Render 3D 35" class="w-full h-full object-cover"></div>
                 <div class="gallery-item rounded-lg overflow-hidden shadow-md cursor-pointer"><img src="assets/render-36.jpg" alt="Render 3D 36" class="w-full h-full object-cover"></div>
             </div>
-            <div class="text-center mt-12 mb-8">
-                <button id="back-to-main-btn-bottom" class="bg-[rgb(255,165,44)] hover:bg-[rgb(230,149,40)] text-white font-bold py-2 px-6 rounded-full text-lg transition duration-300">Voltar</button>
-            </div>
         </div>
         <button id="scroll-to-top-btn" class="fixed bottom-8 right-8 bg-[rgb(255,165,44)] hover:bg-[rgb(230,149,40)] text-white p-3 rounded-full shadow-lg transition-opacity duration-300 opacity-0 pointer-events-none z-50">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -520,7 +517,6 @@
             const fullGallery = document.getElementById('full-gallery');
             const showAllImagesBtn = document.getElementById('show-all-images-btn');
             const backToMainBtn = document.getElementById('back-to-main-btn');
-            const backToMainBtnBottom = document.getElementById('back-to-main-btn-bottom');
             const lightbox = document.getElementById('lightbox');
             const lightboxContent = document.getElementById('lightbox-content');
             const lightboxImg = document.getElementById('lightbox-img');
@@ -731,17 +727,13 @@
                     link.classList.toggle('text-gray-700', !is3DLink);
                 });
             });
-
-            const closeGalleryAction = () => {
+            backToMainBtn.addEventListener('click', () => {
                 fullGallery.classList.add('hidden');
                 mainContent.classList.remove('hidden');
                 document.body.classList.remove('gallery-open');
                 document.getElementById('imagens3d').scrollIntoView();
                 window.dispatchEvent(new Event('scroll'));
-            };
-
-            backToMainBtn.addEventListener('click', closeGalleryAction);
-            backToMainBtnBottom.addEventListener('click', closeGalleryAction);
+            });
             
             fullGallery.addEventListener('scroll', () => {
                 if (fullGallery.scrollTop > 300) {
@@ -914,5 +906,4 @@
 
 </body>
 </html>
-
 
