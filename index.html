@@ -37,7 +37,7 @@
         #header.scrolled {
             background: linear-gradient(to bottom, rgb(209, 209, 209), rgba(209, 209, 209, 0.15));
         }
-        body.gallery-open, body.pdf-viewer-open {
+        body.gallery-open {
             overflow: hidden;
         }
         .lightbox-nav {
@@ -56,44 +56,6 @@
         #hero-title, #hero-subtitle, #hero-address, #hero-stats, #hero-button {
             will-change: transform, opacity;
             transition: transform 0.1s linear, opacity 0.1s linear;
-        }
-        .pdf-viewer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
-            z-index: 110;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .pdf-viewer.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .pdf-viewer iframe {
-            width: 90%;
-            height: 90%;
-            max-width: 1200px;
-            border: 2px solid rgb(255, 165, 44);
-            border-radius: 8px;
-        }
-        .pdf-close-btn {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 3rem;
-            color: white;
-            cursor: pointer;
-            line-height: 1;
-        }
-        .prancha-item {
-            cursor: pointer;
         }
     </style>
 </head>
@@ -262,114 +224,13 @@
             </div>
         </section>
 
+
         <section id="plantas" class="py-20 bg-white/50">
             <div class="container mx-auto px-6">
                 <h3 class="text-3xl md:text-4xl font-bold text-center mb-12">Pranchas do Projeto</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-                    <!-- Prancha 01 -->
-                    <div class="bg-white rounded-lg shadow-lg p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
-                        <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-01.pdf">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-600 mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
-                            <div>
-                                <h4 class="font-bold text-gray-800">01. Implantação e Vista Geral</h4>
-                                <p class="text-sm text-gray-600 hidden sm:block">Visão geral do projeto, acessos e áreas externas.</p>
-                            </div>
-                        </div>
-                        <a href="assets/prancha-01.pdf" download="ESESP-Prancha-01.pdf" target="_blank" class="ml-4 p-2 rounded-full text-gray-500 hover:text-[rgb(255,165,44)] hover:bg-gray-100 transition-colors flex-shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        </a>
-                    </div>
-                    <!-- Prancha 02 -->
-                    <div class="bg-white rounded-lg shadow-lg p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
-                        <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-02.pdf">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-600 mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
-                            <div>
-                                <h4 class="font-bold text-gray-800">02. Projeto de Paisagismo</h4>
-                                <p class="text-sm text-gray-600 hidden sm:block">Detalhamento dos canteiros e vegetação.</p>
-                            </div>
-                        </div>
-                        <a href="assets/prancha-02.pdf" download="ESESP-Prancha-02.pdf" target="_blank" class="ml-4 p-2 rounded-full text-gray-500 hover:text-[rgb(255,165,44)] hover:bg-gray-100 transition-colors flex-shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        </a>
-                    </div>
-                    <!-- Prancha 03 -->
-                    <div class="bg-white rounded-lg shadow-lg p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
-                        <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-03.pdf">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-600 mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
-                            <div>
-                                <h4 class="font-bold text-gray-800">03. Bicicletário e Detalhes</h4>
-                                <p class="text-sm text-gray-600 hidden sm:block">Desenhos técnicos e materiais do bicicletário.</p>
-                            </div>
-                        </div>
-                        <a href="assets/prancha-03.pdf" download="ESESP-Prancha-03.pdf" target="_blank" class="ml-4 p-2 rounded-full text-gray-500 hover:text-[rgb(255,165,44)] hover:bg-gray-100 transition-colors flex-shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        </a>
-                    </div>
-                    <!-- Prancha 04 -->
-                    <div class="bg-white rounded-lg shadow-lg p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
-                        <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-04.pdf">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-600 mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
-                            <div>
-                                <h4 class="font-bold text-gray-800">04. Área de Convivência</h4>
-                                <p class="text-sm text-gray-600 hidden sm:block">Detalhes do pergolado e mobiliário urbano.</p>
-                            </div>
-                        </div>
-                        <a href="assets/prancha-04.pdf" download="ESESP-Prancha-04.pdf" target="_blank" class="ml-4 p-2 rounded-full text-gray-500 hover:text-[rgb(255,165,44)] hover:bg-gray-100 transition-colors flex-shrink-0">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        </a>
-                    </div>
-                    <!-- Prancha 05 -->
-                    <div class="bg-white rounded-lg shadow-lg p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
-                        <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-05.pdf">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-600 mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
-                            <div>
-                                <h4 class="font-bold text-gray-800">05. Paginação de Piso</h4>
-                                <p class="text-sm text-gray-600 hidden sm:block">Desenhos da paginação do estacionamento.</p>
-                            </div>
-                        </div>
-                        <a href="assets/prancha-05.pdf" download="ESESP-Prancha-05.pdf" target="_blank" class="ml-4 p-2 rounded-full text-gray-500 hover:text-[rgb(255,165,44)] hover:bg-gray-100 transition-colors flex-shrink-0">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        </a>
-                    </div>
-                    <!-- Prancha 06 -->
-                    <div class="bg-white rounded-lg shadow-lg p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
-                        <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-06.pdf">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-600 mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
-                            <div>
-                                <h4 class="font-bold text-gray-800">06. Sinalização Vertical</h4>
-                                <p class="text-sm text-gray-600 hidden sm:block">Localização e especificação das placas.</p>
-                            </div>
-                        </div>
-                        <a href="assets/prancha-06.pdf" download="ESESP-Prancha-06.pdf" target="_blank" class="ml-4 p-2 rounded-full text-gray-500 hover:text-[rgb(255,165,44)] hover:bg-gray-100 transition-colors flex-shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        </a>
-                    </div>
-                    <!-- Prancha 07 -->
-                    <div class="bg-white rounded-lg shadow-lg p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
-                        <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-07.pdf">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-600 mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
-                            <div>
-                                <h4 class="font-bold text-gray-800">07. Demolir e Construir</h4>
-                                <p class="text-sm text-gray-600 hidden sm:block">Plantas de demolição, construção e áreas.</p>
-                            </div>
-                        </div>
-                        <a href="assets/prancha-07.pdf" download="ESESP-Prancha-07.pdf" target="_blank" class="ml-4 p-2 rounded-full text-gray-500 hover:text-[rgb(255,165,44)] hover:bg-gray-100 transition-colors flex-shrink-0">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        </a>
-                    </div>
-                    <!-- Prancha 08 -->
-                    <div class="bg-white rounded-lg shadow-lg p-4 flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:scale-105">
-                        <div class="flex-grow prancha-item flex items-center" data-pdf-src="assets/prancha-08.pdf">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-600 mr-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
-                            <div>
-                                <h4 class="font-bold text-gray-800">08. Sinalização Horizontal</h4>
-                                <p class="text-sm text-gray-600 hidden sm:block">Detalhes da pintura de faixas, setas e símbolos.</p>
-                            </div>
-                        </div>
-                        <a href="assets/prancha-08.pdf" download="ESESP-Prancha-08.pdf" target="_blank" class="ml-4 p-2 rounded-full text-gray-500 hover:text-[rgb(255,165,44)] hover:bg-gray-100 transition-colors flex-shrink-0">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        </a>
-                    </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <div class="bg-white rounded-lg p-4 shadow-lg"><img src="https://placehold.co/800x600/FFFFFF/000000?text=Prancha+01/08" alt="Prancha 01/08" class="rounded-md"><p class="text-black text-center mt-4 font-semibold">Prancha 01/08 - Implantação Geral</p></div>
+                    <div class="bg-white rounded-lg p-4 shadow-lg"><img src="https://placehold.co/800x600/FFFFFF/000000?text=Prancha+08/08" alt="Prancha 08/08" class="rounded-md"><p class="text-black text-center mt-4 font-semibold">Prancha 08/08 - Sinalização Horizontal</p></div>
                 </div>
             </div>
         </section>
@@ -470,7 +331,6 @@
         </button>
     </div>
 
-    <!-- Modal/Lightbox para Imagens -->
     <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-[100] pointer-events-none opacity-0 transition-opacity duration-300 ease-in-out">
         <div id="lightbox-content" class="relative bg-[rgb(255,165,44)] p-4 rounded-lg shadow-lg transform scale-95 transition-all duration-300 ease-in-out">
             <img id="lightbox-img" src="" alt="Visualização ampliada" class="max-w-full max-h-[90vh] rounded-md">
@@ -482,25 +342,6 @@
     
     <div id="toast-notification" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white py-3 px-6 rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 z-[110] text-center">
       Este projeto 3D só pode ser explorado no computador. O link foi copiado para você enviar e abrir em um PC.
-    </div>
-
-    <div id="pdf-viewer" class="pdf-viewer">
-        <div id="pdf-controls" class="absolute top-4 left-1/2 -translate-x-1/2 flex items-center space-x-2 bg-black/50 p-2 rounded-lg z-20">
-            <button id="zoom-out-btn" title="Diminuir Zoom" class="text-white p-2 rounded-md hover:bg-white/20 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7" />
-                </svg>
-            </button>
-            <button id="zoom-in-btn" title="Aumentar Zoom" class="text-white p-2 rounded-md hover:bg-white/20 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                </svg>
-            </button>
-        </div>
-        <span id="pdf-close-btn" class="pdf-close-btn">&times;</span>
-        <div id="pdf-iframe-wrapper" class="w-full h-full flex items-center justify-center overflow-auto p-4 md:p-8">
-            <iframe id="pdf-iframe" src="" frameborder="0" class="transition-transform duration-300 ease-in-out" style="width: 100%; height: 100%; max-width: 1200px;"></iframe>
-        </div>
     </div>
 
     <script>
@@ -534,18 +375,11 @@
             const heroAddress = document.getElementById('hero-address');
             const heroStats = document.getElementById('hero-stats');
             const heroButton = document.getElementById('hero-button');
-            const pdfViewer = document.getElementById('pdf-viewer');
-            const pdfIframe = document.getElementById('pdf-iframe');
-            const pdfCloseBtn = document.getElementById('pdf-close-btn');
-            const pranchaItems = document.querySelectorAll('.prancha-item');
-            const zoomInBtn = document.getElementById('zoom-in-btn');
-            const zoomOutBtn = document.getElementById('zoom-out-btn');
             
             let isPlaying = false;
             let wasPlayingBeforeHidden = false;
             let currentIndex = -1;
             let gallerySources = [];
-            let zoomLevel = 1;
 
             function initializeGallery() {
                 const allGalleryImages = document.querySelectorAll('.gallery-item img');
@@ -722,13 +556,9 @@
             }
             
             const handleKeydown = (e) => {
-                if (e.key === 'Escape' && lightbox.classList.contains('opacity-0') && pdfViewer.classList.contains('visible')) {
-                    closePdfViewer();
-                } else if (!pdfViewer.classList.contains('visible')) {
-                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') showNextImage();
-                    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') showPrevImage();
-                    else if (e.key === 'Escape') hideLightbox();
-                }
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') showNextImage();
+                else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') showPrevImage();
+                else if (e.key === 'Escape') hideLightbox();
             };
 
             function showLightbox(item) {
@@ -802,52 +632,13 @@
                     window.open(link, '_blank');
                 }
             });
-
-            function openPdfViewer(url) {
-                pdfIframe.src = url;
-                pdfViewer.classList.add('visible');
-                document.body.classList.add('pdf-viewer-open');
-                window.addEventListener('keydown', handleKeydown);
-            }
-
-            function closePdfViewer() {
-                pdfViewer.classList.remove('visible');
-                document.body.classList.remove('pdf-viewer-open');
-                pdfIframe.src = '';
-                zoomLevel = 1; // Reset zoom
-                pdfIframe.style.transform = `scale(1)`;
-                window.removeEventListener('keydown', handleKeydown);
-            }
-
-            pranchaItems.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    openPdfViewer(item.dataset.pdfSrc);
-                });
-            });
-
-            pdfCloseBtn.addEventListener('click', closePdfViewer);
-
-            pdfViewer.addEventListener('click', (e) => {
-                if (e.target.id === 'pdf-viewer' || e.target.id === 'pdf-iframe-wrapper') {
-                    closePdfViewer();
-                }
-            });
-
-            zoomInBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                zoomLevel = Math.min(3, zoomLevel + 0.2); // Limite máximo de zoom 3x
-                pdfIframe.style.transform = `scale(${zoomLevel})`;
-            });
-
-            zoomOutBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                zoomLevel = Math.max(0.5, zoomLevel - 0.2); // Limite mínimo de zoom 0.5x
-                pdfIframe.style.transform = `scale(${zoomLevel})`;
-            });
-
         });
     </script>
 
 </body>
 </html>
+
+
+
+
 
