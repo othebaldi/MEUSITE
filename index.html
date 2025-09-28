@@ -537,20 +537,6 @@
             const pranchaItems = document.querySelectorAll('.prancha-item');
             const pdfIframeWrapper = document.getElementById('pdf-iframe-wrapper');
             
-            function adjustDownloadLinksForIphone() {
-                const isIPhone = /iPhone/i.test(navigator.userAgent);
-                if (isIPhone) {
-                    const downloadLinks = document.querySelectorAll('a[download]');
-                    downloadLinks.forEach(link => {
-                        if (link.href.toLowerCase().endsWith('.pdf')) {
-                            link.removeAttribute('download');
-                            link.setAttribute('target', '_blank');
-                        }
-                    });
-                }
-            }
-            adjustDownloadLinksForIphone();
-
             let isPlaying = false;
             let wasPlayingBeforeHidden = false;
             let currentIndex = -1;
@@ -874,5 +860,4 @@
 
 </body>
 </html>
-
 
