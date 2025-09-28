@@ -95,7 +95,7 @@
         </div>
 
         <div class="mt-8 text-center">
-            <a href="portfolio.html" class="text-sm text-gray-600 hover:text-gray-900 underline">Voltar ao Portfólio</a>
+            <a href="./portfolio.html" class="text-sm text-gray-600 hover:text-gray-900 underline">Voltar ao Portfólio</a>
         </div>
     </div>
 
@@ -113,6 +113,12 @@
         let loggedUserEmail = null;
         let currentUserData = null;
 
+        function navigateToPage(page) {
+            const currentPath = window.location.pathname;
+            const newPath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1) + page;
+            window.location.href = newPath;
+        }
+
         function showMessage(message, type = 'error', duration = 5000) {
             const messageDiv = document.getElementById('globalMessage');
             messageDiv.textContent = message;
@@ -123,6 +129,7 @@
             } else if (type === 'success') {
                 messageDiv.classList.add('bg-green-100', 'text-green-700');
             }
+            messageDiv.classList.remove('hidden');
             
             setTimeout(() => {
                 messageDiv.classList.add('hidden');
@@ -135,7 +142,7 @@
                 loggedUserEmail = sessionStorage.getItem('loggedInUser');
 
                 if (!isAuthenticated || !loggedUserEmail) {
-                    window.location.href = 'login.html';
+                    navigateToPage('login.html');
                     return;
                 }
 
@@ -149,7 +156,10 @@
 
                 if (!userDoc.exists) {
                     showMessage('Erro: Usuário não encontrado.');
-                    setTimeout(() => sessionStorage.clear(), 2000);
+                    setTimeout(() => {
+                        sessionStorage.clear();
+                        navigateToPage('login.html');
+                    }, 2000);
                     return;
                 }
                 
@@ -258,3 +268,4 @@
     </script>
 </body>
 </html>
+
